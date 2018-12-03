@@ -33,7 +33,7 @@ GLvoid drawScene( GLvoid )
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	
-	glColor3f(1.f, 1.f, 1.f);
+	WHITE;
 	glutSolidSphere(5, 20, 10);
 
 	glutSwapBuffers();
@@ -54,16 +54,4 @@ void TimerFunction(int value)
 {
 	glutPostRedisplay();
 	glutTimerFunc(100, TimerFunction, 1);
-}
-
-void Keyboard(unsigned char key, int x, int y)
-{
-	switch (key)
-	{
-	case VK_ESCAPE: 	case 'Q':	case 'q':
-		::PostQuitMessage(0);
-		break;
-	default:
-		break;
-	}
 }
