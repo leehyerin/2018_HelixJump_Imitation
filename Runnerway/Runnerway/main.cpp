@@ -1,11 +1,9 @@
 #include <GL/freeglut.h>
 #include "MyHeader.h"
 #include "Input.cpp"
+#include "Math.h"
 
-GLvoid Reshape(int, int);
-GLvoid drawScene(GLvoid);
-void TimerFunction(int);
-void Keyboard(unsigned char, int, int);
+Ball ball;
 
 int main(int argc, char *argv[]) 
 { 
@@ -20,6 +18,7 @@ int main(int argc, char *argv[])
 	glutTimerFunc(100, TimerFunction, 1);
 
 	glutKeyboardFunc(Keyboard);
+	glutSpecialFunc(SpecialKeyboard);
 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -32,9 +31,8 @@ GLvoid drawScene( GLvoid )
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	
-	WHITE;
-	glutSolidSphere(5, 20, 10);
+
+	ball.DrawBall();
 
 	glutSwapBuffers();
 }
