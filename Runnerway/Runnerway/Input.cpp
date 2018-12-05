@@ -22,13 +22,6 @@ inline void SpecialKeyboard(int key, int x, int y)
 {
 	switch (key)
 	{
-	case GLUT_KEY_UP:
-	{
-		ball.SetRotZ(ball.GetRotZ() - 3);
-		ball.SetPosZ(ball.GetPosZ() - 1 * PI * ball.GetRadius() / 120);
-	}
-		break;
-
 	case GLUT_KEY_LEFT:
 	{
 		ball.SetRotX(ball.GetRotX() - 3);

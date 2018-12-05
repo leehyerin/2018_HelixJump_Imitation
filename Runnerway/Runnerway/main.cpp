@@ -50,6 +50,9 @@ GLvoid Reshape(int w, int h)
 
 void TimerFunction(int value)
 {
+	ball.SetRotZ(ball.GetRotZ() - 3);
+	ball.SetPosZ(ball.GetPosZ() - 1 * PI * ball.GetRadius() / 120);
+
 	glutPostRedisplay();
 	glutTimerFunc(100, TimerFunction, 1);
 }
