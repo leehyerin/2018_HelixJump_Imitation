@@ -5,6 +5,7 @@ private:
 	float x, y, z;
 	float radius;
 	float rotX, rotY, rotZ;
+	float test;
 
 public:
 	Ball();
