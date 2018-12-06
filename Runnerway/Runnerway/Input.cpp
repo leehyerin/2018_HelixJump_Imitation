@@ -3,7 +3,9 @@
 #include "Ball.h"
 #include "Math.h"
 
-extern Ball ball;
+extern Ball cBall;
+extern double dx,dy,z;
+
 
 inline void Keyboard(unsigned char key, int x, int y)
 {
@@ -12,6 +14,12 @@ inline void Keyboard(unsigned char key, int x, int y)
 	case VK_ESCAPE: case 'Q': case 'q':
 		::PostQuitMessage(0);
 		break;
+	case 'z': z -= 1; break;
+	case 'Z': z += 1; break;
+	case 'x': dx -= 1; break;
+	case 'X': dx += 1; break;
+	case 'y': dy -= 1; break;
+	case 'Y': dy += 1; break;
 
 	default:
 		break;
@@ -24,15 +32,15 @@ inline void SpecialKeyboard(int key, int x, int y)
 	{
 	case GLUT_KEY_LEFT:
 	{
-		ball.SetRotX(ball.GetRotX() - 3);
-		ball.SetPosX(ball.GetRotX() - 1 * PI * ball.GetRadius() / 360);
+		cBall.SetRotX(cBall.GetRotX() - 3);
+		cBall.SetPosX(cBall.GetRotX() - 1 * PI * cBall.GetRadius() / 360);
 	}
 		break;
 
 	case GLUT_KEY_RIGHT:
 	{
-		ball.SetRotX(ball.GetRotX() + 3);
-		ball.SetPosX(ball.GetRotX() + 1 * PI * ball.GetRadius() / 360);
+		cBall.SetRotX(cBall.GetRotX() + 3);
+		cBall.SetPosX(cBall.GetRotX() + 1 * PI * cBall.GetRadius() / 360);
 	}
 		break;
 

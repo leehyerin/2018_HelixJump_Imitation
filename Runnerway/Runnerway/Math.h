@@ -6,8 +6,9 @@
 
 
 
-//double ConvertToRadian(double DegreeValue)
-//{
-//	double RadianValue = DegreeValue * (PI / 180.0);
-//	return RadianValue;
-//}
+inline double ConvertToRadian(double DegreeValue)
+{
+	double RadianValue = DegreeValue * (PI / 180.0);
+
+	return RadianValue;
+}

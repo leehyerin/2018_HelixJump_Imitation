@@ -5,13 +5,12 @@ private:
 	float x, y, z;
 	float radius;
 	float rotX, rotY, rotZ;
-	float test;
-	float test2;
 
 public:
 	Ball();
 	~Ball();
 
+	void UpdateHeight();
 	void DrawBall();
 
 	float GetPosX() { return x; }

@@ -13,16 +13,25 @@ Ball::~Ball()
 {
 }
 
+void Ball::UpdateHeight()
+{
+	y = 0;
+}
+
 void Ball::DrawBall()
 {
 	WHITE;
-	glTranslatef(x, 0.0f, 0.0f);
-	glTranslatef(0.0f, y, 0.0f);
-	glTranslatef(0.0f, 0.0f, z);
-	glRotatef(rotZ, 1.0f, 0.0f, 0.0f);
-	glRotatef(rotY, 0.0f, 1.0f, 0.0f);
-	glRotatef(rotX, 0.0f, 0.0f, 1.0f);
-	glutSolidSphere(radius, 20, 10);
-	BLACK;
-	glutWireSphere(radius, 20, 10);
+	glPushMatrix();
+	{
+		glTranslatef(x, 0.0f, 0.0f);
+		glTranslatef(0.0f, y, 0.0f);
+		glTranslatef(0.0f, 0.0f, z);
+		glRotatef(rotZ, 1.0f, 0.0f, 0.0f);
+		glRotatef(rotY, 0.0f, 1.0f, 0.0f);
+		glRotatef(rotX, 0.0f, 0.0f, 1.0f);
+		glutSolidSphere(radius, 20, 10);
+		BLACK;
+		glutWireSphere(radius, 20, 10);
+	}
+	glPopMatrix();
 }

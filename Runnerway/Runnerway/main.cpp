@@ -2,8 +2,12 @@
 #include "MyHeader.h"
 #include "Input.cpp"
 #include "Math.h"
+#include "Ground.h"
 
-Ball ball;
+Ball cBall;
+Ground cGround;
+double dx{0}, dy{ 0 }, z{ -50 };
+void CameraReset();
 
 int main(int argc, char *argv[]) 
 { 
@@ -21,7 +25,6 @@ int main(int argc, char *argv[])
 	glutSpecialFunc(SpecialKeyboard);
 
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
 	glutMainLoop (); 
 } 
 
@@ -32,7 +35,11 @@ GLvoid drawScene( GLvoid )
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	ball.DrawBall();
+	cGround.Draw();
+	glEnable(GL_CULL_FACE);
+	cBall.DrawBall();
+	glDisable(GL_CULL_FACE);
+
 
 	glutSwapBuffers();
 }
@@ -43,15 +50,35 @@ GLvoid Reshape(int w, int h)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+
+	gluPerspective(60, (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT, 1.0, 1000.0);
+
+	glTranslated(0, 0, z);
+	glTranslated(dx, 0, 0);
+
+	glRotated(30, 1, 0, 0);	
+	glRotated(dy,0, 1, 0);
+}
+
+void CameraReset()
+{
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
 	gluPerspective(90, (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT, 1.0, 1000.0);
-	glTranslated(0, 0, -30);
-	glRotated(30, 1, 0, 0);
+
+	glTranslated(0, 0, z);
+	glRotated(dx, 1, 0, 0);
+
+	glRotated(20, 1, 0, 0);
+	glRotated(dy, 0, 1, 0);
 }
 
 void TimerFunction(int value)
-{
-	ball.SetRotZ(ball.GetRotZ() - 3);
-	ball.SetPosZ(ball.GetPosZ() - 1 * PI * ball.GetRadius() / 120);
+{	CameraReset();
+
+	cBall.SetRotZ(cBall.GetRotZ() - 3);
+	cBall.SetPosZ(cBall.GetPosZ() - 1 * PI * cBall.GetRadius() / 120);
 
 	glutPostRedisplay();
 	glutTimerFunc(100, TimerFunction, 1);
