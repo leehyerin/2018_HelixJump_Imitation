@@ -1,2 +1,7 @@
-#include "Item.h"
+#include "stdafx.h"
 
+void Item::Draw()
+{
+	YELLOW;
+	CCube::Draw();
+}

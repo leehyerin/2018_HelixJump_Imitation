@@ -1,28 +1,32 @@
-#include <GL/freeglut.h>
-#include "Math.h"
-#include "Ground.h"
-
+#include "stdafx.h"
 
 Ground::Ground()
 {
-	double angle = 0;
-	double Floordegree = 0;
-	double radius = 20;
+	float angle = 0;
+	float Floordegree = 0;
+	float radius = 20;
 
-	double x{ 0 }, z{ 0 };
-	
-	for (z = 0.0; z > -20.0; z -= 0.25)
+	float x{ 0 }, z{ 0 };
+
+	for (z = 0.0; z > -40.0; z -= 0.25)
 	{
-		Floordegree += 1;
+		Floordegree += 0.1;
 
-		vMap.push_back(Map{ MyVec{x, 0.0, z }, Floordegree });
+		vMap.push_back(Map{ MyVec{ x, 0.f, z }, Floordegree });
 	}
-	
-	for (z = -20.0; z > -40.0; z -= 0.25)
-	{
-		Floordegree -= 1;
 
-		vMap.push_back(Map{ MyVec{ x, 0.0, z }, Floordegree });
+	for (z = -40.0; z > -80.0; z -= 0.25)
+	{
+		Floordegree -= 0.1;
+
+		vMap.push_back(Map{ MyVec{ x, 0.f, z }, Floordegree });
+	}
+
+	for (z = -80.0; z > -120.0; z -= 0.25)
+	{
+		Floordegree += 0.1;
+
+		vMap.push_back(Map{ MyVec{ x, 0.f, z }, Floordegree });
 	}
 }
 
@@ -33,26 +37,40 @@ Ground::~Ground()
 void Ground::Draw()
 {
 	glPushMatrix();
-	RED;
-	
+	SOIL;
 	for (unsigned int d = 0; d < vMap.size(); ++d)
-			DrawQuads(vMap[d].m_pos.x, vMap[d].m_pos.z, vMap[d].m_degree);
+		DrawQuads(vMap[d].m_pos.x, vMap[d].m_pos.z, vMap[d].m_degree);
 }
-void Ground::DrawQuads(double x, double z, double degree)
+
+void Ground::DrawQuads(float x, float z, float degree)
 {
 	glPushMatrix();
 	{
-		glTranslated(x, 0, z);
-		glRotated(degree, 0, 1, 0);
+		glTranslatef(x, 0, z);
+		glRotatef(degree, 0, 1, 0);
 
 		glBegin(GL_QUADS);
 		{
-			glVertex3d(x - 10.0, 0, z + 0.5);
-			glVertex3d(x - 10.0, 0, z - 0.5);
-			glVertex3d(x + 10.0, 0, z - 0.5);
-			glVertex3d(x + 10.0, 0, z + 0.5);
+			glVertex3f(x - 20.0, 0, z + 0.5);
+			glVertex3f(x - 20.0, 0, z - 0.5);
+			glVertex3f(x + 20.0, 0, z - 0.5);
+			glVertex3f(x + 20.0, 0, z + 0.5);
 		}
 		glEnd();
 	}
 	glPopMatrix();
+}
+
+float Ground::YDegreeOnTile(float x, float z)
+{
+	auto X = floor(x);
+	auto Z = floor(z);
+
+	for (auto d : vMap)
+		if (d.m_pos.z == Z)
+		{
+			cout << d.m_degree << endl;
+			return d.m_degree; break;
+		}
+	return 0.0f;
 }

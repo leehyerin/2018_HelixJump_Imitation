@@ -1,23 +1,26 @@
-#include <GL/freeglut.h>
-#include <iostream>
-#include "Math.h"
-#include "MyHeader.h"
+#include "stdafx.h"
 
 extern Ball ball;
 extern Camera camera;
-extern bool isJump;
+extern int scenenum;
 
 inline void Keyboard(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
 	case 'p':		// test
-		printf("%d\n", camera.GetLorB());
-
 		if (camera.GetLorB())
 			camera.SetLorB(false);
 		else
 			camera.SetLorB(true);
+		break;
+
+	case 'l':		// test
+		scenenum++;
+
+		if (scenenum == 4)
+			scenenum = 0;
+
 		break;
 
 	case VK_ESCAPE: case 'Q': case 'q':
@@ -35,7 +38,7 @@ inline void SpecialKeyboard(int key, int x, int y)
 
 	if (mod == GLUT_ACTIVE_CTRL)
 	{
-		isJump = true;
+		ball.SetIsJump(true);
 	}
 
 	if (camera.GetLorB())

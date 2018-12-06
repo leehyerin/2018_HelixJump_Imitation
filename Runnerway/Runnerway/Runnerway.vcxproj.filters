@@ -36,12 +36,15 @@
     <ClCompile Include="Ground.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="CCube.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MyHeader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Ball.h">
@@ -57,6 +60,18 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MyVec.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CCube.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

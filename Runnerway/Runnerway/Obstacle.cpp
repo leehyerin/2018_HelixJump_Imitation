@@ -1,8 +1,4 @@
-#include "Obstacle.h"
-#include <GL/freeglut.h>
-#include "MyHeader.h"
-
-
+#include "stdafx.h"
 
 Obstacle::Obstacle()
 {

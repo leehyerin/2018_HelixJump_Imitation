@@ -1,13 +1,14 @@
-#include <GL/freeglut.h>
-#include "MyHeader.h"
-#include "Ball.h"
+#include "stdafx.h"
 
 Ball::Ball()
 {
-	x = 0.0f, y = 0.0f, z = 0.0f;
+	x = 0.0f, y = 5.0f, z = 0.0f;
 	radius = 5.0f;
 	rotZ = 0.0f;
 	speed = 10.0f;
+
+	isJump = false;
+	time = 0;
 }
 
 Ball::~Ball()

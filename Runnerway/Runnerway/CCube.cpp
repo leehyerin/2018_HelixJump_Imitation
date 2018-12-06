@@ -1,5 +1,4 @@
-#include "CCube.h"
-#include <GL/freeglut.h>
+#include "stdafx.h"
 
 CCube::CCube()
 {
@@ -33,4 +32,3 @@ bool CCube::CheckCollPlayerbyItem(float x, float y, float z, float radius)
 
 	return false;
 }
-

@@ -1,16 +1,23 @@
-#pragma once
-//----------------Include----------------
+#include <gl/freeglut.h>
 #include <vector>
+#include <iostream>
+
 #include "Ball.h"
 #include "Camera.h"
-using namespace std;
+#include "CCube.h"
+#include "Ground.h"
+#include "Item.h"
+#include "Math.h"
+#include "MyVec.h"
+#include "Obstacle.h"
+#include "Scene.h"
 
+using namespace std;
 
 
 //----------------Default----------------
 #define WINDOW_WIDTH 500
 #define WINDOW_HEIGHT 700
-
 
 
 //----------------Color-----------------
@@ -25,6 +32,11 @@ using namespace std;
 #define BROWN			glColor3f(0.6f, 0.3f, 0.06f)
 #define SOIL			glColor3f(0.5f, 0.4f, 0.22f)
 
+
+//----------------Check----------------
+#define CheckBoundary(min,max,val) ((min<=val) && (val<=max))? true: false 
+#define CheckCollRectbyPoint(rX,rY,pX,pY) 	((rX - 10 <= pX) && (pX <= rX + 10) && (rY - 10 <= pY) && (pY <= rY + 10))? true:  false
+#define CheckCollRectbyLine(A,B,ra,rb) 	((A - rb <= B + rb) && (A + ra >= B - rb))? true:  false
 
 
 //----------------Function----------------

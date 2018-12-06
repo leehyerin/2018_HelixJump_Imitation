@@ -1,13 +1,14 @@
-#include <GL/freeglut.h>
+#include "stdafx.h"
 #include "Input.cpp"
-#include "Ground.h"
 
 Camera camera;
 Ball ball;
 Ground ground;
+vector<Item> vItems;
+vector<Obstacle> vObstacles;
 
-bool isJump = false;
-int time = 0;
+Scene *scene = new Title();
+int scenenum = 0;
 
 int main(int argc, char *argv[]) 
 { 
@@ -17,12 +18,22 @@ int main(int argc, char *argv[])
 	glutInitWindowPosition ( 0, 0 ); 	
 	glutInitWindowSize ( WINDOW_WIDTH, WINDOW_HEIGHT ); 	
 	glutCreateWindow ( "Runnerway" ); 	
-	glutDisplayFunc (drawScene );
+	glutDisplayFunc (drawScene);
 	glutReshapeFunc (Reshape);	
 	glutTimerFunc(100, TimerFunction, 1);
 
 	glutKeyboardFunc(Keyboard);
 	glutSpecialFunc(SpecialKeyboard);
+
+	//--------Init----------
+	vItems.push_back(Item(0.0, 5.0, -20.0, 10.0));
+	vItems.push_back(Item(10.0, 5.0, -60.0, 10.0));
+	vItems.push_back(Item(-10.0, 5.0, -100.0, 10.0));
+	vItems.push_back(Item(10.0, 5.0, -120.0, 10.0));
+	vItems.push_back(Item(10.0, 5.0, -160.0, 10.0));
+
+	vObstacles.push_back(Obstacle(0, 5, 0, 5));
+	//---------------------
 
 	glEnable(GL_DEPTH_TEST);
 	glutMainLoop (); 
@@ -35,12 +46,7 @@ GLvoid drawScene( GLvoid )
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-
-	camera.CameraPos();
-	glEnable(GL_CULL_FACE); 
-	ball.DrawBall();
-	glDisable(GL_CULL_FACE);
-	ground.Draw();
+	draw();
 
 	glutSwapBuffers();
 }
@@ -56,23 +62,7 @@ GLvoid Reshape(int w, int h)
 
 void TimerFunction(int value)
 {
-	ball.SetRotZ(ball.GetRotZ() - ball.GetSpeed());
-	ball.SetPosZ(ball.GetPosZ() - 1 * PI * ball.GetRadius() / (360 / ball.GetSpeed()));
-
-	if (isJump)
-	{
-		if (time < 5)
-			ball.SetPosY(ball.GetPosY() + 1);
-		else if (time >= 5 && time < 10)
-			ball.SetPosY(ball.GetPosY() - 1);
-		else
-		{
-			isJump = false;
-			time = 0;
-		}
-
-		time++;
-	}
+	update();
 
 	glutPostRedisplay();
 	glutTimerFunc(100, TimerFunction, 1);

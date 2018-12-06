@@ -1,6 +1,5 @@
 #pragma once
 #include "MyVec.h"
-#include "MyHeader.h"
 
 class CCube
 {

@@ -1,4 +1,5 @@
 #pragma once
+
 struct MyVec
 {
 	double x, y, z;
