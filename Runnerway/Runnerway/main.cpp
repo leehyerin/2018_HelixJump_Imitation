@@ -1,9 +1,10 @@
 #include <GL/freeglut.h>
-#include "MyHeader.h"
 #include "Input.cpp"
-#include "Math.h"
 
 Ball ball;
+
+bool isJump = false;
+int time = 0;
 
 int main(int argc, char *argv[]) 
 { 
@@ -50,8 +51,23 @@ GLvoid Reshape(int w, int h)
 
 void TimerFunction(int value)
 {
-	ball.SetRotZ(ball.GetRotZ() - 3);
-	ball.SetPosZ(ball.GetPosZ() - 1 * PI * ball.GetRadius() / 120);
+	ball.SetRotZ(ball.GetRotZ() - ball.GetSpeed());
+	ball.SetPosZ(ball.GetPosZ() - 1 * PI * ball.GetRadius() / (360 / ball.GetSpeed()));
+
+	if (isJump)
+	{
+		if (time < 5)
+			ball.SetPosY(ball.GetPosY() + 1);
+		else if (time >= 5 && time < 10)
+			ball.SetPosY(ball.GetPosY() - 1);
+		else
+		{
+			isJump = false;
+			time = 0;
+		}
+
+		time++;
+	}
 
 	glutPostRedisplay();
 	glutTimerFunc(100, TimerFunction, 1);

@@ -1,9 +1,10 @@
 #include <GL/freeglut.h>
 #include <iostream>
-#include "Ball.h"
 #include "Math.h"
+#include "MyHeader.h"
 
 extern Ball ball;
+extern bool isJump;
 
 inline void Keyboard(unsigned char key, int x, int y)
 {
@@ -20,6 +21,13 @@ inline void Keyboard(unsigned char key, int x, int y)
 
 inline void SpecialKeyboard(int key, int x, int y)
 {
+	int mod = glutGetModifiers();
+
+	if (mod == GLUT_ACTIVE_CTRL)
+	{
+		isJump = true;
+	}
+
 	switch (key)
 	{
 	case GLUT_KEY_LEFT:
