@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 extern Ball ball;
+extern Ground ground;
 
 Camera::Camera()
 {
@@ -15,10 +16,10 @@ void Camera::CameraPos()
 		glTranslated(0.0f, 0.0f, -30.0f);
 
 		glRotated(30.0f, 1.0f, 0.0f, 0.0f);
-		glRotated(0.0f, 0.0f, 1.0f, 0.0f);
+		glRotated(-ground.YDegreeOnTile(ball.GetPosX(), ball.GetPosZ()), 0.0f, 1.0f, 0.0f);
 		glRotated(0.0f, 0.0f, 0.0f, 1.0f);
 
-		gluLookAt(0.0f, 0.0f, ball.GetPosZ(), 0.0f, 0.0f, -1000.0f, 0.0f, 1.0f, 0.0f);
+		gluLookAt(ball.GetPosX(), 0.0f, ball.GetPosZ(), 0.0f, 0.0f, -1000.0f, 0.0f, 1.0f, 0.0f);
 	}
 	else
 	{

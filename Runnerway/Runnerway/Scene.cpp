@@ -36,6 +36,7 @@ Scene *Play::update(void)
 {
 	// 초기화 함수 필요 //
 
+	ball.SetRotY(-ground.YDegreeOnTile(ball.GetPosX(), ball.GetPosZ()));
 	ball.SetRotZ(ball.GetRotZ() - ball.GetSpeed());
 	ball.SetPosZ(ball.GetPosZ() - 1 * PI * ball.GetRadius() / (360 / ball.GetSpeed()));
 
@@ -43,7 +44,7 @@ Scene *Play::update(void)
 	{
 		if (ball.GetTime() < 5)
 			ball.SetPosY(ball.GetPosY() + 1);
-		else if (ball.GetTime() >= 5 && ball.GetTime() < 10)
+		else if (ball.GetTime() >= 5 && ball.GetTime() < 9)
 			ball.SetPosY(ball.GetPosY() - 1);
 		else
 		{
@@ -53,10 +54,6 @@ Scene *Play::update(void)
 
 		ball.SetTime(ball.GetTime() + 1);
 	}
-
-	//
-	ball.SetRotY(ground.YDegreeOnTile(ball.GetPosX(), ball.GetPosZ()));
-	//
 
 	if (scenenum == 3)
 		return new Result();
