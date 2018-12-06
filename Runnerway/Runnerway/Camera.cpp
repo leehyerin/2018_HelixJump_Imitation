@@ -1,4 +1,4 @@
-#include <gl/freeglut.h>
+#include <GL/freeglut.h>
 #include "Camera.h"
 #include "Ball.h"
 #include <stdio.h>
@@ -12,6 +12,7 @@ Camera::Camera()
 
 void Camera::CameraPos()
 {
+	//glPushMatrix();
 	if (LorB)
 	{
 		glTranslated(0.0f, 0.0f, -30.0f);
@@ -32,4 +33,5 @@ void Camera::CameraPos()
 
 		gluLookAt(0.0f, 0.0f, ball.GetPosZ(), 0.0f, 0.0f, -100.0f, 0.0f, 1.0f, 0.0f);
 	}
+	//glPopMatrix();
 }

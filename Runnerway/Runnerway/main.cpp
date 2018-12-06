@@ -1,8 +1,10 @@
 #include <GL/freeglut.h>
 #include "Input.cpp"
+#include "Ground.h"
 
 Camera camera;
 Ball ball;
+Ground ground;
 
 bool isJump = false;
 int time = 0;
@@ -23,7 +25,6 @@ int main(int argc, char *argv[])
 	glutSpecialFunc(SpecialKeyboard);
 
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
 	glutMainLoop (); 
 } 
 
@@ -34,8 +35,12 @@ GLvoid drawScene( GLvoid )
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+
 	camera.CameraPos();
+	glEnable(GL_CULL_FACE); 
 	ball.DrawBall();
+	glDisable(GL_CULL_FACE);
+	ground.Draw();
 
 	glutSwapBuffers();
 }

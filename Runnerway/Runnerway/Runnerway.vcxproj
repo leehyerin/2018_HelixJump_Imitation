@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
@@ -125,9 +126,11 @@
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="MyHeader.h" />
+    <ClInclude Include="MyVec.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

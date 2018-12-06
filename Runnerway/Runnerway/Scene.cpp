@@ -1,15 +1,15 @@
 enum STATE { TITLE, PLAY, RESULT };
 
 class Title {
-	void update();
+	//void update();
 };
 
 class Play {
-	void update();
+	//void update();
 };
 
 class Result {
-	void update();
+	//Svoid update();
 };
 
 STATE state;
@@ -23,15 +23,15 @@ void update()
 	switch (state)
 	{
 	case TITLE:
-		title->update();
+		//title->update();
 		break;
 
 	case PLAY:
-		play->update();
+		//play->update();
 		break;
 
 	case RESULT:
-		result->update();
+		//result->update();
 		break;
 	}
 }
