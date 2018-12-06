@@ -4,12 +4,22 @@
 #include "MyHeader.h"
 
 extern Ball ball;
+extern Camera camera;
 extern bool isJump;
 
 inline void Keyboard(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
+	case 'p':		// test
+		printf("%d\n", camera.GetLorB());
+
+		if (camera.GetLorB())
+			camera.SetLorB(false);
+		else
+			camera.SetLorB(true);
+		break;
+
 	case VK_ESCAPE: case 'Q': case 'q':
 		::PostQuitMessage(0);
 		break;
@@ -28,23 +38,26 @@ inline void SpecialKeyboard(int key, int x, int y)
 		isJump = true;
 	}
 
-	switch (key)
+	if (camera.GetLorB())
 	{
-	case GLUT_KEY_LEFT:
-	{
-		ball.SetRotX(ball.GetRotX() - 3);
-		ball.SetPosX(ball.GetRotX() - 1 * PI * ball.GetRadius() / 360);
-	}
+		switch (key)
+		{
+		case GLUT_KEY_LEFT:
+		{
+			ball.SetRotX(ball.GetRotX() - 3);
+			ball.SetPosX(ball.GetRotX() - 1 * PI * ball.GetRadius() / 360);
+		}
 		break;
 
-	case GLUT_KEY_RIGHT:
-	{
-		ball.SetRotX(ball.GetRotX() + 3);
-		ball.SetPosX(ball.GetRotX() + 1 * PI * ball.GetRadius() / 360);
-	}
+		case GLUT_KEY_RIGHT:
+		{
+			ball.SetRotX(ball.GetRotX() + 3);
+			ball.SetPosX(ball.GetRotX() + 1 * PI * ball.GetRadius() / 360);
+		}
 		break;
 
-	default:
-		break;
+		default:
+			break;
+		}
 	}
 }

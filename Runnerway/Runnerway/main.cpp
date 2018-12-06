@@ -1,6 +1,7 @@
 #include <GL/freeglut.h>
 #include "Input.cpp"
 
+Camera camera;
 Ball ball;
 
 bool isJump = false;
@@ -33,6 +34,7 @@ GLvoid drawScene( GLvoid )
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+	camera.CameraPos();
 	ball.DrawBall();
 
 	glutSwapBuffers();
@@ -45,8 +47,6 @@ GLvoid Reshape(int w, int h)
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(90, (double)WINDOW_WIDTH / (double)WINDOW_HEIGHT, 1.0, 1000.0);
-	glTranslated(0, 0, -30);
-	glRotated(30, 1, 0, 0);
 }
 
 void TimerFunction(int value)

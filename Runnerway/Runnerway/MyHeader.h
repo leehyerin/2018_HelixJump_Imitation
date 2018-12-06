@@ -2,6 +2,7 @@
 //----------------Include----------------
 #include <vector>
 #include "Ball.h"
+#include "Camera.h"
 using namespace std;
 
 

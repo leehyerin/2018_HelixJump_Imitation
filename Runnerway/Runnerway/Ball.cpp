@@ -7,7 +7,7 @@ Ball::Ball()
 	x = 0.0f, y = 0.0f, z = 0.0f;
 	radius = 5.0f;
 	rotZ = 0.0f;
-	speed = 3.0f;
+	speed = 10.0f;
 }
 
 Ball::~Ball()
