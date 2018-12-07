@@ -13,66 +13,99 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\0.Game">
+      <UniqueIdentifier>{197a3f4a-2da4-4d76-b6bb-dc0830b08f69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\1.Scene">
+      <UniqueIdentifier>{c3daa2b5-835e-44b8-942a-9650d04f9c83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\2.Object">
+      <UniqueIdentifier>{0f16262f-0d84-4f12-955d-17e9f9c04c7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\2.Object\Cube">
+      <UniqueIdentifier>{4688ada7-6dde-4d11-b0e7-e053c49ab222}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\1.Scene">
+      <UniqueIdentifier>{f140120b-f55c-4e9d-b49a-7f027f147065}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\2.Object">
+      <UniqueIdentifier>{01153006-2363-44b2-b660-3f32c1ff379d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\2.Object\Cube">
+      <UniqueIdentifier>{488457c4-5c3c-4c61-b5c2-9c7be22aa2fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\3.Camera">
+      <UniqueIdentifier>{82e55ed6-623a-4311-a22b-e355a28f97fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\3.Camera">
+      <UniqueIdentifier>{a0d49c12-9a1d-48aa-8754-d51cb0c2fcd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\99.Header">
+      <UniqueIdentifier>{a26109f5-cdfa-4c0c-9694-997d38a2fe69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\0.Default">
+      <UniqueIdentifier>{264b98bf-1aab-475b-bc72-f40ebe96ed2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Input.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Ball.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\0.Game</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\1.Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="CCube.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="Ball.cpp">
+      <Filter>소스 파일\2.Object</Filter>
     </ClCompile>
     <ClCompile Include="Obstacle.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\2.Object\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>소스 파일\2.Object\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="CCube.cpp">
+      <Filter>소스 파일\2.Object\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>소스 파일\2.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>소스 파일\0.Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>소스 파일\3.Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Math.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Ball.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="MyVec.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="stdafx.h">
+      <Filter>헤더 파일\0.Default</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\1.Scene</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="Ball.h">
+      <Filter>헤더 파일\2.Object</Filter>
     </ClInclude>
-    <ClInclude Include="Obstacle.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="Ground.h">
+      <Filter>헤더 파일\2.Object</Filter>
     </ClInclude>
     <ClInclude Include="CCube.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\2.Object\Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>헤더 파일\2.Object\Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>헤더 파일\2.Object\Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>헤더 파일\3.Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>헤더 파일\99.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="MyVec.h">
+      <Filter>헤더 파일\99.Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
