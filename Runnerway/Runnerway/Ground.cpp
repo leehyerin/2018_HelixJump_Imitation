@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#define CURVATURE 0.3f //°î·ü
+#define CURVATURE 0.1f //°î·ü
 
 Ground::Ground()
 {

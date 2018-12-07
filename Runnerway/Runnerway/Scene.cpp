@@ -50,9 +50,7 @@ void Play::Init()
 	vItems.push_back(Item(10.0, 5.0, -60.0, 10.0));
 	vItems.push_back(Item(-10.0, 5.0, -100.0, 10.0));
 	vItems.push_back(Item(10.0, 5.0, -120.0, 10.0));
-	vItems.push_back(Item(10.0, 5.0, -160.0, 10.0)); 
-	//<item> .SetColor(1,1,1) ¾²¸é µÅ¿°!
-	
+	vItems.push_back(Item(10.0, 5.0, -160.0, 10.0));
 	//-------------------------------------------------
 	vObstacles.push_back(Obstacle(0, 5, 0, 5));
 }
