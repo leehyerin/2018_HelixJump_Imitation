@@ -1,12 +1,10 @@
 #pragma once
-#include "MyHeader.h"
-#include "MyVec.h"
+#include "stdafx.h"
 
 struct Map
 {
 	MyVec m_pos;
-	double m_degree;
-
+	float m_degree;
 };
 
 class Ground
@@ -16,6 +14,6 @@ public:
 	Ground();
 	~Ground();
 	void Draw();
-	void DrawQuads(double, double, double);
+	void DrawQuads(float, float, float);
+	float YDegreeOnTile(float, float);
 };
-
