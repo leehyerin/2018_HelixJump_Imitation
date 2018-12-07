@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#define CURVATURE 0.1f //°î·ü
+#define CURVATURE 0.3f //°î·ü
 
 Ground::Ground()
 {
@@ -68,71 +68,19 @@ void Ground::DrawQuads(float x, float z, float degree)
 {
 	glPushMatrix();
 	{
-		glTranslatef(x,0, z);
+		glTranslatef(x , 0, z - 0.5f);
 		glRotatef(degree, 0, 1, 0);
 
 		glBegin(GL_QUADS);
 		{
-			glVertex3f(+20, 0, 0);
-			glVertex3f(+20, 0, +1.f);
-			glVertex3f(-20.0f, 0, 1.f);
-			glVertex3f(-20.0f, 0, 0.f);
+			glVertex3f(+40, 0, 0);
+			glVertex3f(+40, 0, 1.f);
+			glVertex3f(-40.0f, 0, 1.f);
+			glVertex3f(-40.0f, 0, 0.f);
 		}
 		glEnd();
 	}
 	glPopMatrix();
-	/*
-	glPushMatrix();
-	{
-		glTranslatef(x + 10.f, 0, z - 0.5);
-		glRotatef(degree, 0, 1, 0);
-		glTranslatef(-10.f, 0, + 0.5);
-
-		glBegin(GL_QUADS);
-		{
-			glVertex3f(0, 0, 0);
-			glVertex3f(0, 0, +1.f);
-			glVertex3f(-20.0f, 0, 1.f);
-			glVertex3f(-20.0f, 0, 0.f);
-		}
-		glEnd();
-	}
-	glPopMatrix();
-
-	glPushMatrix();
-	{
-		glTranslatef(x + 10.f, 0, z - 0.5);
-		glRotatef(degree, 0, 1, 0);
-		glTranslatef(+10.f, 0, +0.5);
-
-		glBegin(GL_QUADS);
-		{
-			glVertex3f(0, 0, 0);
-			glVertex3f(0, 0, +1.f);
-			glVertex3f(-20.0f, 0, 1.f);
-			glVertex3f(-20.0f, 0, 0.f);
-		}
-		glEnd();
-	}
-	glPopMatrix();
-	*/
-	/*glPushMatrix();
-	{
-		glTranslatef(x - 20, 0, z - 0.5);
-		glRotatef(degree, 0, 1, 0);
-
-		glBegin(GL_QUADS);
-		{
-			glVertex3f(0, 0, 0);
-			glVertex3f(0, 0, +1.f);
-			glVertex3f(+40.f, 0, 1.f);
-			glVertex3f(+40.f, 0, -1.f);
-		}
-		glEnd();
-	}
-	glPopMatrix();
-	*/
-
 }
 
 float Ground::YDegreeOnTile(float x, float fz)
