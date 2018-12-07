@@ -2,7 +2,12 @@
 
 void Item::Draw()
 {
-	glColor3f(m_Color.x, m_Color.y, m_Color.z);
+	if (m_Type == DASH)
+		YELLOW;
+	else if (m_Type == BOMB)
+		BLUE;
+	else if (m_Type == ANSWER)
+		RED;
 
 	CCube::Draw();
 }

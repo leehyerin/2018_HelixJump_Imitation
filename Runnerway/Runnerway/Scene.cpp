@@ -7,6 +7,11 @@ Ground ground;
 vector<Item> vItems;
 vector<Obstacle> vObstacles;
 
+int KnockbackTime = 0;
+int accelTime = 0;
+int particleTime = 0;
+bool ObCol = false;
+bool ItemCol[3] = { false, };
 
 void Title::Init()
 {
@@ -58,17 +63,17 @@ void Play::Init()
 	//장애물 초기화. 대충 넣었음
 	float x, z;
 	float height = 0;
-	x = 0, z = -1;
-	height = ground.GetHeightOnTile(x, z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	//x = 0, z = -1;
+	//height = ground.GetHeightOnTile(x, z);
+	//vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
 	x = 0, z =-20;
 	height = ground.GetHeightOnTile(x, z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
-	x = 8, z = -80;
-	height = ground.GetHeightOnTile(x, z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	//x = 8, z = -80;
+	//height = ground.GetHeightOnTile(x, z);
+	//vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
 	x = -10, z = -156;
 	height = ground.GetHeightOnTile(x, z);
@@ -90,6 +95,15 @@ void Play::Init()
 Scene *Play::update(void)
 {
 	// 초기화 함수 필요 //
+
+	if (particleTime < 5)
+		particleTime++;
+	else if (particleTime >= 5)
+	{
+		ball.RunParitcle();
+		particleTime = 0;
+	}
+
 	ball.SetPosY(ball.GetRadius()+ ground.GetHeightOnTile(ball.GetPosX(), ball.GetPosZ()));
 
 	ball.SetRotY(-ground.YDegreeOnTile(ball.GetPosX(), ball.GetPosZ()));
@@ -124,36 +138,75 @@ void Play::draw(void)
 	ball.DrawBall();
 	glDisable(GL_CULL_FACE);
 	ground.Draw(camera.GetLorB());
+	ball.RunParticleDraw();
+
+	//----------------Obstacles---------------------
+	for (unsigned int d = 0; d < vObstacles.size(); ++d)
+		if (vObstacles[d].CheckCollPlayerbyItem(ball.GetPosX(), ball.GetPosY(), ball.GetPosZ(), ball.GetRadius()))
+		{
+			accelTime = 0;
+			ball.SetSpeed(10.0f);
+			ItemCol[1] = false;
+
+			ball.ParticleStart(vObstacles[d].GetPos());
+
+			// 넉백
+			ball.SetPosZ(ball.GetPosZ() + 2.0f);
+			ball.SetSpeed(0.0f);
+
+			ObCol = true;
+
+			vObstacles.erase(vObstacles.begin() + d); //장애물 지우기
+			break;
+		}
+	for (auto d : vObstacles)
+		d.Draw();
+
+	if (ObCol && !ItemCol[1])
+	{
+		KnockbackTime++;
+
+		if (KnockbackTime > 20)
+		{
+			ball.SetSpeed(10.0f);
+			KnockbackTime = 0;
+			ObCol = false;
+		}
+	}
+
 
 	//------------------Items----------------------
 	for (unsigned int d = 0; d < vItems.size(); ++d)
 		if (vItems[d].CheckCollPlayerbyItem(ball.GetPosX(), ball.GetPosY(), ball.GetPosZ(), ball.GetRadius()))
 		{
 			cout << "col!" << endl;
-			ball.SetSpeed(20);			// 아이템 먹었을 경우
+
+			if (vItems[d].GetItemType() == 1)	// 아이템 먹었을 경우
+				ItemCol[1] = true;
 
 			vItems.erase(vItems.begin() + d);//아이템 지우기
 			break;
 		}
 	for (auto d : vItems)
 		d.Draw();
-	
 
-	//----------------Obstacles---------------------
-	for (unsigned int d = 0; d < vObstacles.size(); ++d)
-		if (vObstacles[d].CheckCollPlayerbyItem(ball.GetPosX(), ball.GetPosY(), ball.GetPosZ(), ball.GetRadius()))
+	if (ItemCol[1] && !ObCol)
+	{
+		accelTime++;
+
+		ball.Accelartion(accelTime);
+		
+		if (accelTime > 27)
 		{
-			ball.ParticleStart(vObstacles[d].GetPos());
-			// 넉백,,
-			vObstacles.erase(vObstacles.begin() + d); //장애물 지우기
-			break;
+			accelTime = 0;
+			ball.SetSpeed(10.0f);
+			ItemCol[1] = false;
 		}
-	for (auto d : vObstacles)
-		d.Draw();
+	}
+
 	
 	//--------------------------------------------
 	ball.ParticleProcess();
-
 }
 
 

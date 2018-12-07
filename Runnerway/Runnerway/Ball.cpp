@@ -8,7 +8,8 @@ Ball::Ball()
 	speed = 10.0f;
 
 	isJump = false;
-	time = 0;
+	JumpTime = 0;
+	accelTime = 0;
 }
 
 Ball::~Ball()
@@ -67,12 +68,58 @@ void Ball::ParticleProcess()
 
 void Ball::ParticleDraw()
 {
-	CYAN;
+	BLACK;
 	for (auto d : m_vParticles)
 	{
 		glPushMatrix();
 		glTranslated(d.GetPos()->x, d.GetPos()->y, d.GetPos()->z);
 		glutSolidCube(1.0);
 		glPopMatrix();
+	}
+}
+
+void Ball::RunParitcle()
+{
+	srand((unsigned int)time(NULL));
+
+	if (speed > 0.0f)
+	{
+		for(int i = 0; i < 6; ++i)
+			runParticles.push_back(Particle{ (double)(rand() % 6 + x), (double)(rand() % 3 + y), z, 35 });
+	}
+}
+
+void Ball::RunParticleDraw()
+{
+	WHITE;
+	for (particleIter = runParticles.begin(); particleIter != runParticles.end();)
+	{
+		glPushMatrix();
+		particleIter->SetPos(particleIter->GetPos()->x, particleIter->GetPos()->y + 0.1f, particleIter->GetPos()->z + 0.1f);
+		particleIter->SetTime(particleIter->GetTime() - 1);
+		glTranslated(particleIter->GetPos()->x, particleIter->GetPos()->y, particleIter->GetPos()->z);
+		glutSolidCube(0.1);
+		glPopMatrix();
+
+		if (particleIter->GetTime() <= 0)
+			particleIter = runParticles.erase(runParticles.begin());
+		else
+			++particleIter;
+	}
+}
+
+void Ball::Accelartion(int time)
+{
+	if (time < 15)
+		accelTime++;
+	else if (time >= 15)
+		accelTime--;
+
+	speed = 10.0f + 4 * accelTime;
+
+	if (speed <= 10.0f)
+	{
+		accelTime = 0;
+		speed = 10.0f;
 	}
 }

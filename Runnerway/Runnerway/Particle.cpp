@@ -1,4 +1,4 @@
-#include "Particle.h"
+#include "stdafx.h"
 
 Particle::Particle(double x, double y, double z)
 {
@@ -15,4 +15,19 @@ Particle::Particle(double x, double y, double z)
 	m_Dir.x /= len;
 	m_Dir.y /= len;
 	m_Dir.z /= len;
+}
+
+Particle::Particle(double x, double y, double z, int t)
+{
+	m_Pos.x = x;
+	m_Pos.y = y;
+	m_Pos.z = z;
+	time = t;
+}
+
+void Particle::SetPos(double x, double y, double z)
+{
+	m_Pos.x = x;
+	m_Pos.y = y;
+	m_Pos.z = z;
 }

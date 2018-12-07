@@ -1,5 +1,6 @@
 #include <gl/freeglut.h>
 #include <vector>
+#include <iterator>
 #include <time.h>
 #include <iostream>
 
@@ -11,6 +12,7 @@
 #include "Math.h"
 #include "MyVec.h"
 #include "Obstacle.h"
+#include "Particle.h"
 #include "Scene.h"
 
 using namespace std;

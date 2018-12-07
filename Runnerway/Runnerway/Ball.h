@@ -1,6 +1,7 @@
 #pragma once
 #include "Particle.h"
 #include <vector>
+#include <iterator>
 using namespace std;
 
 class Ball {
@@ -11,11 +12,17 @@ private:
 	float speed;
 	
 	bool isJump;
-	int time;
+	int JumpTime;
+	int accelTime;
+
 	//
 	bool m_bParticle{ false };
 	vector<Particle> m_vParticles;
 	int m_Timer{ 0 };
+
+	vector<Particle> runParticles;
+	vector<Particle>::iterator particleIter;
+
 public:
 	Ball();
 	~Ball();
@@ -31,7 +38,7 @@ public:
 	float GetRadius() { return radius; }
 	float GetSpeed() { return speed; }
 	bool GetIsJump() { return isJump; }
-	int GetTime() { return time; }
+	int GetTime() { return JumpTime; }
 
 	void SetPosX(float posx) { x = posx; }
 	void SetPosY(float posy) { y = posy; }
@@ -41,9 +48,16 @@ public:
 	void SetRotZ(float z) { rotZ = z; }
 	void SetSpeed(float s) { speed = s; }
 	void SetIsJump(bool b) { isJump = b; }
-	void SetTime(int t) { time = t; }
+	void SetTime(int t) { JumpTime = t; }
+
 	//
 	void ParticleStart(MyVec*);
 	void ParticleProcess();
 	void ParticleDraw();
+
+	void RunParitcle();
+	void RunParticleDraw();
+
+	//
+	void Accelartion(int);
 };
