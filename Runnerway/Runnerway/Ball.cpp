@@ -32,3 +32,47 @@ void Ball::DrawBall()
 	}
 	glPopMatrix();
 }
+
+
+void Ball::ParticleStart(MyVec* pos)
+{
+	if (!m_bParticle)
+	{
+		m_bParticle = true;
+		m_Timer = 0;
+
+		for (int j = 0; j < 20; ++j)
+			m_vParticles.push_back(Particle{ pos->x,pos->y,pos->z });
+	}
+}
+
+void Ball::ParticleProcess()
+{
+	if (m_bParticle)
+	{
+		for (unsigned int i = 0; i < m_vParticles.size(); ++i)
+		{
+			++m_Timer;
+			m_vParticles[i].Update();
+		}
+		if (m_Timer == 200)
+		{
+			m_bParticle = false;
+			m_Timer = 0;
+			m_vParticles.clear();
+		}
+		ParticleDraw();
+	}
+}
+
+void Ball::ParticleDraw()
+{
+	CYAN;
+	for (auto d : m_vParticles)
+	{
+		glPushMatrix();
+		glTranslated(d.GetPos()->x, d.GetPos()->y, d.GetPos()->z);
+		glutSolidCube(1.0);
+		glPopMatrix();
+	}
+}

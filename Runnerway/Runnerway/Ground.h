@@ -13,7 +13,9 @@ class Ground
 public:
 	Ground();
 	~Ground();
-	void Draw();
-	void DrawQuads(float, float, float);
+	void Draw(bool);
+	void DrawHorizonQuads(float, float, float, float);
+	void DrawVerticalQuads(float, float, float);
 	float YDegreeOnTile(float, float);
+	float GetHeightOnTile(float x, float z);
 };

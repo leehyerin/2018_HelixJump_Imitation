@@ -1,4 +1,7 @@
 #pragma once
+#include "Particle.h"
+#include <vector>
+using namespace std;
 
 class Ball {
 private:
@@ -9,7 +12,10 @@ private:
 	
 	bool isJump;
 	int time;
-
+	//
+	bool m_bParticle{ false };
+	vector<Particle> m_vParticles;
+	int m_Timer{ 0 };
 public:
 	Ball();
 	~Ball();
@@ -36,4 +42,8 @@ public:
 	void SetSpeed(float s) { speed = s; }
 	void SetIsJump(bool b) { isJump = b; }
 	void SetTime(int t) { time = t; }
+	//
+	void ParticleStart(MyVec*);
+	void ParticleProcess();
+	void ParticleDraw();
 };
