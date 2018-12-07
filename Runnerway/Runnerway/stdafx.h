@@ -1,5 +1,6 @@
 #include <gl/freeglut.h>
 #include <vector>
+#include <time.h>
 #include <iostream>
 
 #include "Ball.h"

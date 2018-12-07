@@ -24,8 +24,6 @@ int main(int argc, char *argv[])
 	glutKeyboardFunc(Keyboard);
 	glutSpecialFunc(SpecialKeyboard);
 
-
-
 	glEnable(GL_DEPTH_TEST);
 	glutMainLoop (); 
 } 
@@ -54,11 +52,9 @@ GLvoid Reshape(int w, int h)
 
 void TimerFunction(int value)
 {
-
 	glutPostRedisplay();
 	glutTimerFunc(100, TimerFunction, 1);
 }
-
 
 void update()
 {

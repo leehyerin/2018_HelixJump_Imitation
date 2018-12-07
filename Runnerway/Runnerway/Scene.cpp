@@ -39,11 +39,14 @@ Scene *Lobby::update(void)
 void Lobby::draw(void)
 {
 }
+
+
 //////////////////////////////////////////////////////////////////////////////
 Play::Play()
 {
 	Init();
 }
+
 void Play::Init()
 {
 	vItems.push_back(Item(0.0, 5.0, -20.0, 10.0));
@@ -97,6 +100,7 @@ void Play::draw(void)
 		if (vItems[d].CheckCollPlayerbyItem(ball.GetPosX(), ball.GetPosY(), ball.GetPosZ(), ball.GetRadius()))
 		{
 			cout << "col!" << endl;
+			ball.SetSpeed(20);			// 아이템 먹었을 경우
 			vItems.erase(vItems.begin() + d);//아이템 겟!
 		}
 	for (auto d : vItems)
@@ -106,17 +110,20 @@ void Play::draw(void)
 		if (vObstacles[d].CheckCollPlayerbyItem(ball.GetPosX(), ball.GetPosY(), ball.GetPosZ(), ball.GetRadius()))
 		{
 			cout << "col!" << endl;//장애물 충돌!
+			// 넉백,,
 								   //vObstacles.erase(vObstacles.begin() + d);
 		}
 	for (auto d : vObstacles)
 		d.Draw();
 	//--------------------------------------------
 }
+
+
+//////////////////////////////////////////////////////////////////////////////
 void Result::Init()
 {
 }
 
-//////////////////////////////////////////////////////////////////////////////
 Scene *Result::update(void)
 {
 	if (scenenum == 0)

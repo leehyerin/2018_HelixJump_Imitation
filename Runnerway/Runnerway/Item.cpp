@@ -2,6 +2,7 @@
 
 void Item::Draw()
 {
-	YELLOW;
+	glColor3f(m_Color.x, m_Color.y, m_Color.z);
+
 	CCube::Draw();
 }
