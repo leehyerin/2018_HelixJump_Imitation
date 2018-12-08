@@ -12,6 +12,7 @@
 #include "Camera.h"
 #include "CCube.h"
 #include "Item.h"
+#include "Light.h"
 #include "Math.h"
 #include "MyVec.h"
 #include "Obstacle.h"

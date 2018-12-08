@@ -10,7 +10,7 @@ Ball::Ball()
 	x = 0.0f, y = 5.0f, z = 0.0f;
 	radius = 5.0f;
 	rotZ = 0.0f;
-	speed = 15.0f;
+	speed = 20.0f;
 
 	isJump = false;
 	JumpTime = 0;
@@ -23,14 +23,14 @@ Ball::~Ball()
 
 void Ball::Update()
 {
-	SetRotZ(GetRotZ() - GetSpeed());
-	SetPosZ(GetPosZ() - 1 * PI * GetRadius() / (360 / GetSpeed()));
-
 	if (GetIsJump())
 	{
-		if (GetTime() < 5)
-			SetPosY(GetPosY() + 1);
-		else if (GetTime() >= 5 && GetTime() < 9)
+		SetRotZ(GetRotZ() - GetSpeed());
+		SetPosZ(GetPosZ() - 1 * PI * GetRadius() / (360 / GetSpeed()) - 1.0f);
+
+		if (GetTime() < 10)
+			SetPosY(GetPosY() + 2);
+		else if (GetTime() >= 10 && GetTime() < 25)
 		{
 			float ty = terrain.GetHeightOnTile(GetPosZ());
 			if (y <= ty)
@@ -50,9 +50,13 @@ void Ball::Update()
 
 		SetTime(GetTime() + 1);
 	}
+	else
+	{
+		SetRotZ(GetRotZ() - GetSpeed());
+		SetPosZ(GetPosZ() - 1 * PI * GetRadius() / (360 / GetSpeed()));
 
-	else 
 		SetPosY(GetRadius() + terrain.GetHeightOnTile(GetPosZ()));
+	}
 }
 
 void Ball::DrawBall()
@@ -255,11 +259,11 @@ void Ball::Accelartion(int time)
 	else if (time >= 15)
 		accelTime--;
 
-	speed = 10.0f + 4 * accelTime;
+	speed = 20.0f + 4 * accelTime;
 
-	if (speed <= 10.0f)
+	if (speed <= 20.0f)
 	{
 		accelTime = 0;
-		speed = 10.0f;
+		speed = 20.0f;
 	}
 }

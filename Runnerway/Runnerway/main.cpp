@@ -10,6 +10,8 @@ GLuint texture[6];
 GLubyte *pBytes; // 데이터를 가리킬 포인터
 BITMAPINFO *info; // 비트맵 헤더 저장할 변수
 
+Light light;
+
 void update();
 void draw();
 void DrawSky();
@@ -49,6 +51,8 @@ GLvoid drawScene( GLvoid )
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
+	light.TurnOnAmbientLight();
 
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);

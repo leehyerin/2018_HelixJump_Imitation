@@ -10,7 +10,7 @@ private:
 	float radius;
 	float rotX, rotY, rotZ;
 	float speed;
-	
+
 	bool isJump;
 	int JumpTime;
 	int accelTime;

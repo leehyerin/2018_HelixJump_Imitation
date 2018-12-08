@@ -29,7 +29,7 @@ void Camera::CameraPos()
 	//---------------------갈림길-------------------------
 	if (ball.GetPosZ() < -450.0f && ball.GetPosZ() > -600.0f)
 	{
-		LorB = false;
+		LorB = true;
 	}
 	//---------------------종 구간-------------------------
 	if (ball.GetPosZ() < -600.0f && ball.GetPosZ() > -680.0f)
@@ -40,7 +40,7 @@ void Camera::CameraPos()
 	if (ball.GetPosZ() < -680.0f && ball.GetPosZ() > -780.0f)
 	{
 		ball.SetPosX(0.f);
-		LorB = false;
+		LorB = true;
 	}
 	//---------------------종 구간-------------------------
 	if (ball.GetPosZ() < -780.0f && ball.GetPosZ() > -1000.0f)
@@ -61,13 +61,26 @@ void Camera::CameraPos()
 	}
 	else
 	{
-		glTranslated(0.0f, 0.0f, -30.0f);
+		if (terrain.GetIsFork())
+		{
+			glTranslated(0.0f, 0.0f, -30.0f);
 
-		glRotated(0.0f, 1.0f, 0.0f, 0.0f);
-		glRotated(-90.0f, 0.0f, 1.0f, 0.0f);
-		glRotated(0.0f, 0.0f, 0.0f, 1.0f);
+			glRotated(0.0f, 1.0f, 0.0f, 0.0f);
+			glRotated(-90.0f, 0.0f, 1.0f, 0.0f);
+			glRotated(0.0f, 0.0f, 0.0f, 1.0f);
 
-		gluLookAt(0.0f, 0.0f, ball.GetPosZ(), 0.0f, 0.0f, -100.0f, 0.0f, 1.0f, 0.0f);
+			gluLookAt(ball.GetPosX(), ball.GetPosY(), ball.GetPosZ(), 0.0f, 0.0f, -100.0f, 0.0f, 1.0f, 0.0f);
+		}
+		else
+		{
+			glTranslated(0.0f, 0.0f, -30.0f);
+
+			glRotated(0.0f, 1.0f, 0.0f, 0.0f);
+			glRotated(-90.0f, 0.0f, 1.0f, 0.0f);
+			glRotated(0.0f, 0.0f, 0.0f, 1.0f);
+
+			gluLookAt(0.0f, ball.GetPosY(), ball.GetPosZ(), 0.0f, 0.0f, -100.0f, 0.0f, 1.0f, 0.0f);
+		}
 	}
 	//glPopMatrix();
 }

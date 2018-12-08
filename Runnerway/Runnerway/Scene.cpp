@@ -171,30 +171,30 @@ void Play::Init()
 void Play::OnBGM()
 {
 	//// 파일 열기
-	MCI_OPEN_PARMS mciOpen;   // MCI_OPEN_PARAMS 구조체 변수 
-	mciOpen.lpstrDeviceType = "waveaudio";  // mpegvideo : mp3, waveaudio : wav, avivideo : avi
-	mciOpen.lpstrElementName = "Resources/Beat.wav"; // 파일이름
-	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpen);
+	//MCI_OPEN_PARMS mciOpen;   // MCI_OPEN_PARAMS 구조체 변수 
+	//mciOpen.lpstrDeviceType = "waveaudio";  // mpegvideo : mp3, waveaudio : wav, avivideo : avi
+	//mciOpen.lpstrElementName = "Resources/Beat.wav"; // 파일이름
+	//mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpen);
 
-	// 재생
-	MCI_PLAY_PARMS mciPlay;
-	dwID1 = mciOpen.wDeviceID;
-	mciSendCommand(dwID1, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay);//MCI_NOTIFY : 기본, MCI_DGV_PLAY_REPEAT : 반복
+	//// 재생
+	//MCI_PLAY_PARMS mciPlay;
+	//dwID1 = mciOpen.wDeviceID;
+	//mciSendCommand(dwID1, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay);//MCI_NOTIFY : 기본, MCI_DGV_PLAY_REPEAT : 반복
 
-																				  /////////////////////////////////////////////////////////////////////////////////////
+	//																			  /////////////////////////////////////////////////////////////////////////////////////
 
-																				  // 파일 열기
-	MCI_OPEN_PARMS walkingOnSnow;   // MCI_OPEN_PARAMS 구조체 변수 
-	walkingOnSnow.lpstrDeviceType = "waveaudio";
-	walkingOnSnow.lpstrElementName = "Resources/walkingOnsnow.wav";
-	mciSendCommand(0, MCI_OPEN,
-		MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
-		(DWORD)(LPVOID)&walkingOnSnow);
+	//																			  // 파일 열기
+	//MCI_OPEN_PARMS walkingOnSnow;   // MCI_OPEN_PARAMS 구조체 변수 
+	//walkingOnSnow.lpstrDeviceType = "waveaudio";
+	//walkingOnSnow.lpstrElementName = "Resources/walkingOnsnow.wav";
+	//mciSendCommand(0, MCI_OPEN,
+	//	MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
+	//	(DWORD)(LPVOID)&walkingOnSnow);
 
-	// 재생
-	MCI_PLAY_PARMS mciPlay2;
-	dwID2 = walkingOnSnow.wDeviceID;
-	mciSendCommand(dwID2, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay2);
+	//// 재생
+	//MCI_PLAY_PARMS mciPlay2;
+	//dwID2 = walkingOnSnow.wDeviceID;
+	//mciSendCommand(dwID2, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay2);
 	/////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -225,6 +225,8 @@ Scene *Play::update(void)
 		particleTime = 0;
 	}
 
+	printf("%f %f %f\n", ball.GetPosX(), ball.GetPosY(), ball.GetPosZ());
+
 
 	//-----------갈림길 부분에서 방향에 따라 x를 바꿔주는 부분------------
 	if (ball.GetPosZ() <= -450)
@@ -253,7 +255,6 @@ Scene *Play::update(void)
 
 void Play::draw(void)
 {
-
 	camera.CameraPos();
 	glEnable(GL_CULL_FACE);
 	ball.DrawBall();
@@ -266,9 +267,8 @@ void Play::draw(void)
 		if (vObstacles[d].CheckCollPlayerbyItem(ball.GetPosX(), ball.GetPosY(), ball.GetPosZ(), ball.GetRadius()))
 		{
 			sndPlaySoundA("Resources/Explosion.wav", SND_ASYNC);
-			accelTime = 0;
-			ball.SetSpeed(10.0f);
 			ItemCol[0] = false;
+			accelTime = 0;
 
 			ball.ParticleStart(vObstacles[d].GetPos());
 
@@ -289,12 +289,11 @@ void Play::draw(void)
 
 		if (KnockbackTime > 20)
 		{
-			ball.SetSpeed(10.0f);
+			ball.SetSpeed(20.0f);
 			KnockbackTime = 0;
 			ObCol = false;
 		}
 	}
-
 
 	//------------------Items----------------------
 	for (unsigned int d = 0; d < vItems.size(); ++d)
@@ -328,7 +327,7 @@ void Play::draw(void)
 		if (accelTime > 27)
 		{
 			accelTime = 0;
-			ball.SetSpeed(10.0f);
+			ball.SetSpeed(20.0f);
 			ItemCol[0] = false;
 		}
 	}
