@@ -22,7 +22,7 @@ public:
 	void DrawVerticalQuads(float, float, float);
 
 	float GetYDegreeOnTile(float, float);
-	float GetHeightOnTile(float x, float z);
+	float GetHeightOnTile(float z);
 	float GetXNearTile(float x, float z);
 	float GetZNearTile(float z);
 };

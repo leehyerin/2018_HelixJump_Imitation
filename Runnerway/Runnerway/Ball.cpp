@@ -23,13 +23,16 @@ Ball::~Ball()
 
 void Ball::Update()
 {
+	SetRotZ(GetRotZ() - GetSpeed());
+	SetPosZ(GetPosZ() - 1 * PI * GetRadius() / (360 / GetSpeed()));
+
 	if (GetIsJump())
 	{
 		if (GetTime() < 5)
 			SetPosY(GetPosY() + 1);
 		else if (GetTime() >= 5 && GetTime() < 9)
 		{
-			float ty = terrain.GetHeightOnTile(GetPosX(), GetPosZ());
+			float ty = terrain.GetHeightOnTile(GetPosZ());
 			if (y <= ty)
 			{
 				y = ty;
@@ -49,7 +52,7 @@ void Ball::Update()
 	}
 
 	else 
-		SetPosY(GetRadius() + terrain.GetHeightOnTile(GetPosX(), GetPosZ()));
+		SetPosY(GetRadius() + terrain.GetHeightOnTile(GetPosZ()));
 }
 
 void Ball::DrawBall()

@@ -175,7 +175,7 @@ float Terrain::GetYDegreeOnTile(float x, float fz)
 	return 0.0f;
 }
 
-float Terrain::GetHeightOnTile(float x, float fz)
+float Terrain::GetHeightOnTile(float fz)
 {
 	float Z = GetZNearTile(-fz);
 

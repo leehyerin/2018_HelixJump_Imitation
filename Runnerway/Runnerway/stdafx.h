@@ -5,6 +5,8 @@
 #include <iterator>
 #include <time.h>
 #include <iostream>
+#include <MMSystem.h>
+#include "Digitalv.h"
 
 #include "Ball.h"
 #include "Camera.h"

@@ -5,7 +5,7 @@ Camera camera;
 
 Scene *scene = new Title();
 int scenenum = 0;
-
+float z = 0;
 GLuint texture[6];
 GLubyte *pBytes; // 데이터를 가리킬 포인터
 BITMAPINFO *info; // 비트맵 헤더 저장할 변수
@@ -13,9 +13,13 @@ BITMAPINFO *info; // 비트맵 헤더 저장할 변수
 void update();
 void draw();
 void DrawSky();
+void DrawUI();
 
 GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info);
 void LoadTexture();
+
+void OrthoCameraReset();
+void PerspectiveCameraReset();
 
 int main(int argc, char *argv[]) 
 { 
@@ -185,6 +189,54 @@ void DrawSky()
 	glTexCoord2f(0.0f, 1.0f);
 	glVertex3f(300.0f, 500.0f, -250.0f);
 	glEnd();
+
+	DrawUI();
+}
+
+void DrawUI()
+{
+	//UI를 어떻게 그리지?
+	//1. 카메라 앞에 고정
+	//2. 직교투영좌표계로 그리는데 따라오게 z 조절
+	//UI
+
+	glPushMatrix();
+	glTranslated(ball.GetPosX(), ball.GetPosY()+10, ball.GetPosZ()+50.f);
+	glutSolidCube(10.0);
+	glPopMatrix();
+	//z = ball.GetPosZ() + 20.f;
+
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-200.0f, 500.0f, -500.f);
+
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(-200.0f, 450.0f, -500.f);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(200.0f, 450.0f, -500.f);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(200.0f, 500.0f, -500.f);
+	glEnd();
+	//
+	glBindTexture(GL_TEXTURE_2D, texture[1]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-200.0f, 100.0f, -250.f);
+
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(-200.0f, 50.0f, -250.f);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(200.0f, 50.0f, -250.f);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(200.0f, 100.0f, -250.f);
+	glEnd();
+
+
 }
 
 GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info)
