@@ -11,6 +11,6 @@ Obstacle::~Obstacle()
 
 void Obstacle::Draw()
 {
-	BLACK;
-	CCube::Draw();
+	WHITE;
+	CCube::Draw(2, 2.0f);
 }

@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <gl/freeglut.h>
 #include <vector>
 #include <iterator>

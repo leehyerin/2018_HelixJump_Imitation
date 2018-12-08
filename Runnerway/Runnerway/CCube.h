@@ -17,6 +17,6 @@ public:
 
 	bool CheckCollPlayerbyItem(float x, float y, float z, float radius);
 
-	virtual void Draw();
+	virtual void Draw(int num, float size);
 };
 

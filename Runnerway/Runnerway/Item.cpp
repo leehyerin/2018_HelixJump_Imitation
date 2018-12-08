@@ -2,10 +2,6 @@
 
 void Item::Draw()
 {
-	if (m_Type == DASH)
-		YELLOW;
-	else if (m_Type == BOMB)
-		BLUE;
-
-	CCube::Draw();
+	WHITE;
+	CCube::Draw(3, 4.0f);
 }

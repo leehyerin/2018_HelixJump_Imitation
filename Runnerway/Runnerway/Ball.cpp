@@ -1,6 +1,9 @@
 #include "stdafx.h"
 
 extern Terrain terrain;
+extern GLuint texture[6];
+extern GLubyte *pBytes; // 데이터를 가리킬 포인터
+extern BITMAPINFO *info; // 비트맵 헤더 저장할 변수
 
 Ball::Ball()
 {
@@ -54,6 +57,16 @@ void Ball::DrawBall()
 	glPushMatrix();
 	{
 		WHITE;
+
+		// 자동 매핑 설정 
+		glEnable(GL_TEXTURE_GEN_S);
+		glEnable(GL_TEXTURE_GEN_T);
+
+		// 구 매핑
+		glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
+		glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
+		glBindTexture(GL_TEXTURE_2D, texture[5]);
+
 		glTranslatef(x, 0.0f, 0.0f);
 		glTranslatef(0.0f, y, 0.0f);
 		glTranslatef(0.0f, 0.0f, z);
@@ -61,8 +74,10 @@ void Ball::DrawBall()
 		glRotatef(rotY, 0.0f, 1.0f, 0.0f);
 		glRotatef(rotX, 0.0f, 0.0f, 1.0f);
 		glutSolidSphere(radius, 20, 10);
-		BLACK;
-		glutWireSphere(radius, 20, 10);
+
+		// 자동 매핑 해제
+		glDisable(GL_TEXTURE_GEN_S);
+		glDisable(GL_TEXTURE_GEN_T);
 	}
 	glPopMatrix();
 }
@@ -101,12 +116,101 @@ void Ball::ParticleProcess()
 
 void Ball::ParticleDraw()
 {
-	BLACK;
 	for (auto d : m_vParticles)
 	{
 		glPushMatrix();
 		glTranslated(d.GetPos()->x, d.GetPos()->y, d.GetPos()->z);
-		glutSolidCube(1.0);
+
+		// 텍스처를 객체에 맵핑
+		glBindTexture(GL_TEXTURE_2D, texture[2]);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(-0.5f, -0.5f, -0.5f);
+
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(-0.5f, 0.5f, -0.5f);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(0.5f, 0.5f, -0.5f);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(0.5f, -0.5f, -0.5f);
+		glEnd();
+
+		glBindTexture(GL_TEXTURE_2D, texture[2]);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(-0.5f, -0.5f, 0.5f);
+
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(-0.5f, 0.5f, 0.5f);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(0.5f, 0.5f, 0.5f);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(0.5f, -0.5f, 0.5f);
+		glEnd();
+
+		glBindTexture(GL_TEXTURE_2D, texture[2]);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(-0.5f, -0.5f, -0.5f);
+
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(-0.5f, 0.5f, -0.5f);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(-0.5f, 0.5f, 0.5f);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(-0.5f, -0.5f, 0.5f);
+		glEnd();
+
+		glBindTexture(GL_TEXTURE_2D, texture[2]);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(0.5f, -0.5f, -0.5f);
+
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(0.5f, 0.5f, -0.5f);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(0.5f, 0.5f, 0.5f);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(0.5f, -0.5f, 0.5f);
+		glEnd();
+
+		glBindTexture(GL_TEXTURE_2D, texture[2]);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(-0.5f, -0.5f, -0.5f);
+
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(-0.5f, -0.5f, 0.5f);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(0.5f, -0.5f, 0.5f);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(0.5f, -0.5f, -0.5f);
+		glEnd();
+
+		glBindTexture(GL_TEXTURE_2D, texture[2]);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(-0.5f, 0.5f, -0.5f);
+
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(-0.5f, 0.5f, 0.5f);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(0.5f, 0.5f, 0.5f);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(0.5f, 0.5f, -0.5f);
+		glEnd();
 		glPopMatrix();
 	}
 }

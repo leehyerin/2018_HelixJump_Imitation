@@ -59,7 +59,7 @@ void Camera::CameraPos()
 	}
 	else
 	{
-		glTranslated(0.0f, 0.0f, -50.0f);
+		glTranslated(0.0f, 0.0f, -30.0f);
 
 		glRotated(0.0f, 1.0f, 0.0f, 0.0f);
 		glRotated(-90.0f, 0.0f, 1.0f, 0.0f);

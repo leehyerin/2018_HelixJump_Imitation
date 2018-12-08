@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+extern GLuint texture[6];
+
 CCube::CCube()
 {
 }
@@ -14,12 +16,101 @@ CCube::~CCube()
 {
 }
 
-void CCube::Draw()
+void CCube::Draw(int num, float size)
 {
 	glPushMatrix();
 	{
 		glTranslated(m_Pos.x, m_Pos.y, m_Pos.z);
-		glutSolidCube(m_Radius);
+		// ≈ÿΩ∫√≥∏¶ ∞¥√ºø° ∏ «Œ
+		glBindTexture(GL_TEXTURE_2D, texture[num]);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(-size, -size, -size);
+
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(-size, size, -size);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(size, size, -size);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(size, -size, -size);
+		glEnd();
+
+		glBindTexture(GL_TEXTURE_2D, texture[num]);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(-size, -size, size);
+
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(-size, size, size);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(size, size, size);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(size, -size, size);
+		glEnd();
+
+		glBindTexture(GL_TEXTURE_2D, texture[num]);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(-size, -size, -size);
+
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(-size, size, -size);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(-size, size, size);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(-size, -size, size);
+		glEnd();
+
+		glBindTexture(GL_TEXTURE_2D, texture[num]);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(size, -size, -size);
+
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(size, size, -size);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(size, size, size);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(size, -size, size);
+		glEnd();
+
+		glBindTexture(GL_TEXTURE_2D, texture[num]);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(-size, -size, -size);
+
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(-size, -size, size);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(size, -size, size);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(size, -size, -size);
+		glEnd();
+
+		glBindTexture(GL_TEXTURE_2D, texture[num]);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(-size, size, -size);
+
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(-size, size, size);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(size, size, size);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(size, size, -size);
+		glEnd();
 	}
 	glPopMatrix();
 }
