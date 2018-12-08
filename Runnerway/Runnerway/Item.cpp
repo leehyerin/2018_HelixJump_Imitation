@@ -6,8 +6,6 @@ void Item::Draw()
 		YELLOW;
 	else if (m_Type == BOMB)
 		BLUE;
-	else if (m_Type == ANSWER)
-		RED;
 
 	CCube::Draw();
 }

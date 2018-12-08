@@ -58,11 +58,11 @@ Play::Play()
 
 void Play::Init()
 {
-	vItems.push_back(Item(0.0, 5.0, -20.0, 10.0, 1));
+	vItems.push_back(Item(0.0, 5.0, -20.0, 10.0, 0));
 	vItems.push_back(Item(10.0, 5.0, -60.0, 10.0, 1));
-	vItems.push_back(Item(-10.0, 5.0, -100.0, 10.0, 1));
+	vItems.push_back(Item(-10.0, 5.0, -100.0, 10.0, 0));
 	vItems.push_back(Item(10.0, 5.0, -120.0, 10.0, 1));
-	vItems.push_back(Item(10.0, 5.0, -160.0, 10.0, 1));
+	vItems.push_back(Item(10.0, 5.0, -160.0, 10.0, 0));
 	//-------------------------------------------------
 	//장애물 초기화. 대충 넣었음
 	float x, z;
@@ -159,7 +159,7 @@ void Play::draw(void)
 		{
 			accelTime = 0;
 			ball.SetSpeed(10.0f);
-			ItemCol[1] = false;
+			ItemCol[0] = false;
 
 			ball.ParticleStart(vObstacles[d].GetPos());
 
@@ -175,7 +175,7 @@ void Play::draw(void)
 	for (auto d : vObstacles)
 		d.Draw();
 
-	if (ObCol && !ItemCol[1])
+	if (ObCol)
 	{
 		KnockbackTime++;
 
@@ -194,6 +194,9 @@ void Play::draw(void)
 		{
 			cout << "col!" << endl;
 
+			if (vItems[d].GetItemType() == 0)	// 아이템 먹었을 경우
+				ItemCol[0] = true;
+
 			if (vItems[d].GetItemType() == 1)	// 아이템 먹었을 경우
 				ItemCol[1] = true;
 
@@ -203,18 +206,32 @@ void Play::draw(void)
 	for (auto d : vItems)
 		d.Draw();
 
-	if (ItemCol[1] && !ObCol)
+	if (ItemCol[0] && !ObCol)
 	{
 		accelTime++;
 
 		ball.Accelartion(accelTime);
-		
+
 		if (accelTime > 27)
 		{
 			accelTime = 0;
 			ball.SetSpeed(10.0f);
-			ItemCol[1] = false;
+			ItemCol[0] = false;
 		}
+	}
+	if (ItemCol[1])
+	{
+		for (unsigned int d = 0; d < vObstacles.size(); ++d)
+		{
+			if (vObstacles[d].GetPos()->z > ball.GetPosZ() - 100.0f && vObstacles[d].GetPos()->z < ball.GetPosZ())
+			{
+				ball.ParticleStart(vObstacles[d].GetPos());
+
+				vObstacles.erase(vObstacles.begin() + d); //장애물 지우기
+			}
+		}
+
+		ItemCol[1] = false;
 	}
 
 	

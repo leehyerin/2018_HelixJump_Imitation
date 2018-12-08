@@ -3,8 +3,7 @@
 enum ITEMTYPE
 {
 	DASH,
-	BOMB,
-	ANSWER
+	BOMB
 };
 
 class Item : public CCube
