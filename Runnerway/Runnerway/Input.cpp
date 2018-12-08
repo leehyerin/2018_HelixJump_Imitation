@@ -47,15 +47,21 @@ inline void SpecialKeyboard(int key, int x, int y)
 		{
 		case GLUT_KEY_LEFT:
 		{
-			ball.SetRotX(ball.GetRotX() - 3);
-			ball.SetPosX(ball.GetRotX() - 1 * PI * ball.GetRadius() / 360);
+			if (ball.GetPosX() > -20.0f)
+			{
+				ball.SetRotX(ball.GetRotX() - 5);
+				ball.SetPosX(ball.GetRotX() - 1 * PI * ball.GetRadius() / 360);
+			}
 		}
 		break;
 
 		case GLUT_KEY_RIGHT:
 		{
-			ball.SetRotX(ball.GetRotX() + 3);
-			ball.SetPosX(ball.GetRotX() + 1 * PI * ball.GetRadius() / 360);
+			if (ball.GetPosX() < 20.0f)
+			{
+				ball.SetRotX(ball.GetRotX() + 5);
+				ball.SetPosX(ball.GetRotX() + 1 * PI * ball.GetRadius() / 360);
+			}
 		}
 		break;
 

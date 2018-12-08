@@ -14,6 +14,7 @@ bool ObCol = false;
 bool ItemCol[3] = { false, };
 
 float prevTerrainX = 0;
+float tmpY = 0;
 
 void Title::Init()
 {
@@ -91,14 +92,13 @@ Scene *Play::update(void)
 {
 	// 초기화 함수 필요 //
 
-	if (particleTime < 5)
+	if (particleTime < 3)
 		particleTime++;
-	else if (particleTime >= 5)
+	else if (particleTime >= 3)
 	{
 		ball.RunParitcle();
 		particleTime = 0;
 	}
-
 
 	//
 	ball.SetPosY(ball.GetRadius()+ terrain.GetHeightOnTile(ball.GetPosX(), ball.GetPosZ()));
@@ -122,7 +122,21 @@ Scene *Play::update(void)
 	ball.SetRotZ(ball.GetRotZ() - ball.GetSpeed());
 	ball.SetPosZ(ball.GetPosZ() - 1 * PI * ball.GetRadius() / (360 / ball.GetSpeed()));
 
-	ball.Update(); //점프 함수
+	// 점프
+	if (ball.GetIsJump())
+	{
+		if (ball.GetTime() < 5)
+			ball.SetPosY(ball.GetPosY() + 1);
+		else if (ball.GetTime() >= 5 && ball.GetTime() < 9)
+			ball.SetPosY(ball.GetPosY() - 1);
+		else
+		{
+			ball.SetIsJump(false);
+			ball.SetTime(0);
+		}
+
+		ball.SetTime(ball.GetTime() + 1);
+	}
 
 	if (scenenum == 3)
 		return new Result();

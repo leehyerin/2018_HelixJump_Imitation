@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #define CURVATURE 0.15f //°î·ü
 
+extern Camera camera;
+
 Terrain::Terrain()
 {
 	float angle = 0;
@@ -12,6 +14,8 @@ Terrain::Terrain()
 	//---------------------Á¾ ±¸°£-------------------------
 	for (z = 0.0; z > -80.0; z -= 0.25)
 	{
+		camera.SetLorB(true);
+
 		Floordegree += CURVATURE;
 		y += 0.03f;
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });
@@ -19,6 +23,8 @@ Terrain::Terrain()
 
 	for (z = -80.0; z > -160.0; z -= 0.25)
 	{
+		camera.SetLorB(true);
+
 		Floordegree -= CURVATURE;
 		y -= 0.03f;
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });
@@ -27,18 +33,24 @@ Terrain::Terrain()
 	Floordegree = 0;
 	for (z = -160.0; z > -240.0; z -= 0.25)
 	{
+		camera.SetLorB(false);
+
 		y -= 0.03f;
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });
 	}
 
 	for (z = -240.0; z > -320.0; z -= 0.25)
 	{
+		camera.SetLorB(false);
+
 		y += 0.03f;
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });
 	}
 	//---------------------Á¾ ±¸°£-------------------------
 	for (z = -320.0; z > -400.0; z -= 0.25)
 	{
+		camera.SetLorB(true);
+
 		Floordegree += CURVATURE;
 		y += 0.03f;
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });
@@ -46,6 +58,8 @@ Terrain::Terrain()
 
 	for (z = -400.0; z > -450.0; z -= 0.25)
 	{
+		camera.SetLorB(true);
+
 		Floordegree -= CURVATURE;
 		y -= 0.03f;
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });
@@ -76,6 +90,8 @@ Terrain::Terrain()
 
 	for (z = -600.0; z > -680.0; z -= 0.25)
 	{
+		camera.SetLorB(true);
+
 		Floordegree += CURVATURE;
 		y += 0.03f;
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });
@@ -83,16 +99,22 @@ Terrain::Terrain()
 	//---------------------È¾ ±¸°£-------------------------
 	for (z = -680.0; z > -780.0; z -= 0.25)
 	{
+		camera.SetLorB(false);
+
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });
 	}
 	//---------------------Á¾ ±¸°£-------------------------
 	for (z = -780.0; z > -900.0; z -= 0.25)
 	{
+		camera.SetLorB(true);
+
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });
 	}
 
 	for (z = -900.0; z > -1000.0; z -= 0.25)
 	{
+		camera.SetLorB(true);
+
 		Floordegree += CURVATURE;
 		y -= 0.03f;
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });

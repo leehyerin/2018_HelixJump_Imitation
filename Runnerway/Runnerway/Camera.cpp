@@ -10,6 +10,42 @@ Camera::Camera()
 
 void Camera::CameraPos()
 {
+	//---------------------종 구간-------------------------
+	if (ball.GetPosZ() > -160.0f)
+	{
+		LorB = true;
+	}
+	//---------------------횡 구간-------------------------
+	if (ball.GetPosZ() < -160.0f && ball.GetPosZ() > -320.0f)
+	{
+		LorB = false;
+	}
+	//---------------------종 구간-------------------------
+	if (ball.GetPosZ() < -320.0f && ball.GetPosZ() > -450.0f)
+	{
+		LorB = true;
+	}
+	//---------------------갈림길-------------------------
+	if (ball.GetPosZ() < -450.0f && ball.GetPosZ() > -600.0f)
+	{
+		LorB = false;
+	}
+	//---------------------종 구간-------------------------
+	if (ball.GetPosZ() < -600.0f && ball.GetPosZ() > -680.0f)
+	{
+		LorB = true;
+	}
+	//---------------------횡 구간-------------------------
+	if (ball.GetPosZ() < -680.0f && ball.GetPosZ() > -780.0f)
+	{
+		LorB = false;
+	}
+	//---------------------종 구간-------------------------
+	if (ball.GetPosZ() < -780.0f && ball.GetPosZ() > -1000.0f)
+	{
+		LorB = true;
+	}
+
 	//glPushMatrix();
 	if (LorB)
 	{

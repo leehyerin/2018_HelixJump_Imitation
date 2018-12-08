@@ -2,7 +2,7 @@
 
 class Camera {
 private:
-	bool LorB;			// true Á¾ false È²
+	bool LorB;			// true Á¾ false È¾
 
 public:
 	Camera();
