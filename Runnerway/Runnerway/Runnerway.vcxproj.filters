@@ -33,9 +33,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="CCube.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -43,6 +40,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -57,9 +57,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Ground.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MyVec.h">
@@ -78,6 +75,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

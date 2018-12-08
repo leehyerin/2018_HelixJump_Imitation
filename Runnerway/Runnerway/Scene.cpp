@@ -3,7 +3,7 @@
 extern int scenenum;
 extern Camera camera;
 Ball ball;
-Ground ground;
+Terrain terrain;
 vector<Item> vItems;
 vector<Obstacle> vObstacles;
 
@@ -12,6 +12,8 @@ int accelTime = 0;
 int particleTime = 0;
 bool ObCol = false;
 bool ItemCol[3] = { false, };
+
+float prevTerrainX = 0;
 
 void Title::Init()
 {
@@ -63,32 +65,25 @@ void Play::Init()
 	//장애물 초기화. 대충 넣었음
 	float x, z;
 	float height = 0;
-	//x = 0, z = -1;
-	//height = ground.GetHeightOnTile(x, z);
-	//vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
-	x = 0, z =-20;
-	height = ground.GetHeightOnTile(x, z);
+	x = 10, z =-50;
+	height = terrain.GetHeightOnTile(x, z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
-	//x = 8, z = -80;
-	//height = ground.GetHeightOnTile(x, z);
-	//vObstacles.push_back(Obstacle(x, height + 2, z, 4));
-
 	x = -10, z = -156;
-	height = ground.GetHeightOnTile(x, z);
+	height = terrain.GetHeightOnTile(x, z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
 	x = -3, z = -185;
-	height = ground.GetHeightOnTile(x, z);
+	height = terrain.GetHeightOnTile(x, z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
 	x = -7, z = -250;
-	height = ground.GetHeightOnTile(x, z);
+	height = terrain.GetHeightOnTile(x, z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
 	x = 12, z = -300;
-	height = ground.GetHeightOnTile(x, z);
+	height = terrain.GetHeightOnTile(x, z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 }
 
@@ -104,26 +99,30 @@ Scene *Play::update(void)
 		particleTime = 0;
 	}
 
-	ball.SetPosY(ball.GetRadius()+ ground.GetHeightOnTile(ball.GetPosX(), ball.GetPosZ()));
 
-	ball.SetRotY(-ground.YDegreeOnTile(ball.GetPosX(), ball.GetPosZ()));
+	//
+	ball.SetPosY(ball.GetRadius()+ terrain.GetHeightOnTile(ball.GetPosX(), ball.GetPosZ()));
+	
+	//-----------갈림길 부분에서 방향에 따라 x를 바꿔주는 부분------------
+	if (ball.GetPosZ() <= -450)   
+	{
+		float X = terrain.GetXNearTile(ball.GetPosX(), ball.GetPosZ());
+		ball.CompareAddPosX(prevTerrainX, X);  //
+		prevTerrainX = X;
+	}
+	//갈림길 끝에 닿으면 갈림길 시작으로 보내는 부분
+	if (ball.GetPosZ() <- 580.f && ball.GetPosX() > 0.f)
+	{
+		ball.SetPosX(0.f); ball.SetPosZ(-430.f);
+		prevTerrainX = 0.f;
+	}
+	//------------------------------------------------------------
+
+	ball.SetRotY(-terrain.GetYDegreeOnTile(ball.GetPosX(), ball.GetPosZ()));
 	ball.SetRotZ(ball.GetRotZ() - ball.GetSpeed());
 	ball.SetPosZ(ball.GetPosZ() - 1 * PI * ball.GetRadius() / (360 / ball.GetSpeed()));
 
-	if (ball.GetIsJump())
-	{
-		if (ball.GetTime() < 5)
-			ball.SetPosY(ball.GetPosY() + 1);
-		else if (ball.GetTime() >= 5 && ball.GetTime() < 9)
-			ball.SetPosY(ball.GetPosY() - 1);
-		else
-		{
-			ball.SetIsJump(false);
-			ball.SetTime(0);
-		}
-
-		ball.SetTime(ball.GetTime() + 1);
-	}
+	ball.Update(); //점프 함수
 
 	if (scenenum == 3)
 		return new Result();
@@ -137,7 +136,7 @@ void Play::draw(void)
 	glEnable(GL_CULL_FACE);
 	ball.DrawBall();
 	glDisable(GL_CULL_FACE);
-	ground.Draw(camera.GetLorB());
+	terrain.Draw(camera.GetLorB());
 	ball.RunParticleDraw();
 
 	//----------------Obstacles---------------------

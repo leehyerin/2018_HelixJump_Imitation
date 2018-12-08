@@ -118,7 +118,7 @@
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CCube.cpp" />
-    <ClCompile Include="Ground.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="main.cpp" />
@@ -130,7 +130,7 @@
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CCube.h" />
-    <ClInclude Include="Ground.h" />
+    <ClInclude Include="Terrain.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="MyVec.h" />

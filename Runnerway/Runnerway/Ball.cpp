@@ -2,10 +2,10 @@
 
 Ball::Ball()
 {
-	x = 0.0f, y = 5.0f, z = 0.0f;
+	x = 0.0f, y = 5.0f, z = -400.0f;
 	radius = 5.0f;
 	rotZ = 0.0f;
-	speed = 10.0f;
+	speed = 15.0f;
 
 	isJump = false;
 	JumpTime = 0;
@@ -14,6 +14,24 @@ Ball::Ball()
 
 Ball::~Ball()
 {
+}
+
+void Ball::Update()
+{
+	if (GetIsJump())
+	{
+		if (GetTime() < 5)
+			SetPosY(GetPosY() + 1);
+		else if (GetTime() >= 5 && GetTime() < 9)
+			SetPosY(GetPosY() - 1);
+		else
+		{
+			SetIsJump(false);
+			SetTime(0);
+		}
+
+		SetTime(GetTime() + 1);
+	}
 }
 
 void Ball::DrawBall()

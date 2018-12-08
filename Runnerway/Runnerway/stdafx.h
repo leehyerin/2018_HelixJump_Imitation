@@ -7,7 +7,7 @@
 #include "Ball.h"
 #include "Camera.h"
 #include "CCube.h"
-#include "Ground.h"
+#include "Terrain.h"
 #include "Item.h"
 #include "Math.h"
 #include "MyVec.h"

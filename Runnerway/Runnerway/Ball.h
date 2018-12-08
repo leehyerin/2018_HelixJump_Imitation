@@ -27,6 +27,7 @@ public:
 	Ball();
 	~Ball();
 
+	void Update();
 	void DrawBall();
 
 	float GetPosX() { return x; }
@@ -50,6 +51,7 @@ public:
 	void SetIsJump(bool b) { isJump = b; }
 	void SetTime(int t) { JumpTime = t; }
 
+	void CompareAddPosX(float prevX, float currX) { x = x + (currX - prevX); }
 	//
 	void ParticleStart(MyVec*);
 	void ParticleProcess();
