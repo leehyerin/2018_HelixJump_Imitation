@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+extern Terrain terrain;
+
 Ball::Ball()
 {
 	x = 0.0f, y = 5.0f, z = 0.0f;
@@ -18,6 +20,33 @@ Ball::~Ball()
 
 void Ball::Update()
 {
+	if (GetIsJump())
+	{
+		if (GetTime() < 5)
+			SetPosY(GetPosY() + 1);
+		else if (GetTime() >= 5 && GetTime() < 9)
+		{
+			float ty = terrain.GetHeightOnTile(GetPosX(), GetPosZ());
+			if (y <= ty)
+			{
+				y = ty;
+				SetIsJump(false);
+				SetTime(0);
+			}
+			else 
+				SetPosY(GetPosY() - 1);
+		}
+		else
+		{
+			SetIsJump(false);
+			SetTime(0);
+		}
+
+		SetTime(GetTime() + 1);
+	}
+
+	else 
+		SetPosY(GetRadius() + terrain.GetHeightOnTile(GetPosX(), GetPosZ()));
 }
 
 void Ball::DrawBall()

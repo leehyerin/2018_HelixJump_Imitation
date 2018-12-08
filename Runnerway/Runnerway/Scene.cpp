@@ -53,32 +53,46 @@ void Lobby::draw(void)
 Play::Play()
 {
 	Init();
+	terrain.InitStage1();
 }
 
 void Play::Init()
 {
-	vItems.push_back(Item(0.0, 5.0, -20.0, 10.0,1));
-	vItems.push_back(Item(10.0, 5.0, -60.0, 10.0,1));
-	vItems.push_back(Item(-10.0, 5.0, -100.0, 10.0,1));
-	vItems.push_back(Item(10.0, 5.0, -120.0, 10.0,1));
-	vItems.push_back(Item(10.0, 5.0, -160.0, 10.0,1));
+	vItems.push_back(Item(0.0, 5.0, -20.0, 10.0, 1));
+	vItems.push_back(Item(10.0, 5.0, -60.0, 10.0, 1));
+	vItems.push_back(Item(-10.0, 5.0, -100.0, 10.0, 1));
+	vItems.push_back(Item(10.0, 5.0, -120.0, 10.0, 1));
+	vItems.push_back(Item(10.0, 5.0, -160.0, 10.0, 1));
 	//-------------------------------------------------
 	//장애물 초기화. 대충 넣었음
 	float x, z;
 	float height = 0;
 
-	x = 10, z =-50;
+	x = 20, z = -70;
 	height = terrain.GetHeightOnTile(x, z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
-	x = -10, z = -156;
+	x = -10, z = -150;
 	height = terrain.GetHeightOnTile(x, z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
-	x = -3, z = -185;
+	//---------------------횡 구간-------------------------
+	x = 0, z = -185;
 	height = terrain.GetHeightOnTile(x, z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
+	z = 200;
+	height = terrain.GetHeightOnTile(x, z);
+	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+
+	z = 210;
+	height = terrain.GetHeightOnTile(x, z);
+	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+
+	z = 230;
+	height = terrain.GetHeightOnTile(x, z);
+	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	//---------------------종 구간-------------------------
 	x = -7, z = -250;
 	height = terrain.GetHeightOnTile(x, z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
@@ -101,7 +115,6 @@ Scene *Play::update(void)
 	}
 
 	//
-	ball.SetPosY(ball.GetRadius()+ terrain.GetHeightOnTile(ball.GetPosX(), ball.GetPosZ()));
 	
 	//-----------갈림길 부분에서 방향에 따라 x를 바꿔주는 부분------------
 	if (ball.GetPosZ() <= -450)   
@@ -123,20 +136,7 @@ Scene *Play::update(void)
 	ball.SetPosZ(ball.GetPosZ() - 1 * PI * ball.GetRadius() / (360 / ball.GetSpeed()));
 
 	// 점프
-	if (ball.GetIsJump())
-	{
-		if (ball.GetTime() < 5)
-			ball.SetPosY(ball.GetPosY() + 1);
-		else if (ball.GetTime() >= 5 && ball.GetTime() < 9)
-			ball.SetPosY(ball.GetPosY() - 1);
-		else
-		{
-			ball.SetIsJump(false);
-			ball.SetTime(0);
-		}
-
-		ball.SetTime(ball.GetTime() + 1);
-	}
+	ball.Update();
 
 	if (scenenum == 3)
 		return new Result();

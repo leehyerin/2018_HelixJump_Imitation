@@ -14,6 +14,9 @@ public:
 	Terrain();
 	~Terrain();
 
+	void InitStage1();
+	void InitStage2();
+
 	void Draw(bool);
 	void DrawHorizonQuads(float, float, float, float);
 	void DrawVerticalQuads(float, float, float);
