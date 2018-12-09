@@ -5,7 +5,6 @@ extern GLuint texture[6];
 
 Terrain::Terrain()
 {
-	isFork = false;
 }
 
 Terrain::~Terrain()
@@ -63,7 +62,6 @@ void Terrain::InitStage1()
 	x = 0.f; Floordegree = 30;
 	for (z = -450.0; z > -600.0; z -= 0.25)
 	{
-		isFork = true;
 		Floordegree -= 0.1f;
 		x -= 0.25f;
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });
@@ -86,7 +84,6 @@ void Terrain::InitStage1()
 
 	for (z = -600.0; z > -680.0; z -= 0.25)
 	{
-		isFork = false;
 		Floordegree += CURVATURE;
 		y += 0.03f;
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });

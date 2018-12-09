@@ -11,6 +11,7 @@ Ball::Ball()
 	radius = 5.0f;
 	rotZ = 0.0f;
 	speed = 20.0f;
+	standard = 0.0f;
 
 	isJump = false;
 	JumpTime = 0;

@@ -14,6 +14,7 @@ private:
 	bool isJump;
 	int JumpTime;
 	int accelTime;
+	float standard;
 
 	//
 	bool m_bParticle{ false };
@@ -40,6 +41,7 @@ public:
 	float GetSpeed() { return speed; }
 	bool GetIsJump() { return isJump; }
 	int GetTime() { return JumpTime; }
+	float GetStandard() { return standard; }
 
 	void SetPosX(float posx) { x = posx; }
 	void SetPosY(float posy) { y = posy; }
@@ -50,6 +52,7 @@ public:
 	void SetSpeed(float s) { speed = s; }
 	void SetIsJump(bool b) { isJump = b; }
 	void SetTime(int t) { JumpTime = t; }
+	void SetStandard(float s) { standard = s; }
 
 	void CompareAddPosX(float prevX, float currX) { x = x + (currX - prevX); }
 	//

@@ -10,7 +10,6 @@ struct Map
 class Terrain
 {
 	vector<Map> vMap;
-	bool isFork;
 
 public:
 	Terrain();
@@ -27,6 +26,4 @@ public:
 	float GetHeightOnTile(float z);
 	float GetXNearTile(float x, float z);
 	float GetZNearTile(float z);
-
-	bool GetIsFork() { return isFork; }
 };

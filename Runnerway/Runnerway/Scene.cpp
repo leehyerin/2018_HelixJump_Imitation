@@ -177,32 +177,32 @@ void Play::Init()
 
 void Play::OnBGM()
 {
-	// 파일 열기
-	MCI_OPEN_PARMS mciOpen;   // MCI_OPEN_PARAMS 구조체 변수 
-	mciOpen.lpstrDeviceType = "waveaudio";  // mpegvideo : mp3, waveaudio : wav, avivideo : avi
-	mciOpen.lpstrElementName = "Resources/Beat.wav"; // 파일이름
-	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpen);
+	//// 파일 열기
+	//MCI_OPEN_PARMS mciOpen;   // MCI_OPEN_PARAMS 구조체 변수 
+	//mciOpen.lpstrDeviceType = "waveaudio";  // mpegvideo : mp3, waveaudio : wav, avivideo : avi
+	//mciOpen.lpstrElementName = "Resources/Beat.wav"; // 파일이름
+	//mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpen);
 
-	// 재생
-	MCI_PLAY_PARMS mciPlay;
-	dwID1 = mciOpen.wDeviceID;
-	mciSendCommand(dwID1, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay);//MCI_NOTIFY : 기본, MCI_DGV_PLAY_REPEAT : 반복
+	//// 재생
+	//MCI_PLAY_PARMS mciPlay;
+	//dwID1 = mciOpen.wDeviceID;
+	//mciSendCommand(dwID1, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay);//MCI_NOTIFY : 기본, MCI_DGV_PLAY_REPEAT : 반복
 
+	///////////////////////////////////////////////////////////////////////////////////////
+
+	//// 파일 열기
+	//MCI_OPEN_PARMS walkingOnSnow;   // MCI_OPEN_PARAMS 구조체 변수 
+	//walkingOnSnow.lpstrDeviceType = "waveaudio";
+	//walkingOnSnow.lpstrElementName = "Resources/walkingOnsnow.wav";
+	//mciSendCommand(0, MCI_OPEN,
+	//	MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
+	//	(DWORD)(LPVOID)&walkingOnSnow);
+
+	//// 재생
+	//MCI_PLAY_PARMS mciPlay2;
+	//dwID2 = walkingOnSnow.wDeviceID;
+	//mciSendCommand(dwID2, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay2);
 	/////////////////////////////////////////////////////////////////////////////////////
-
-	// 파일 열기
-	MCI_OPEN_PARMS walkingOnSnow;   // MCI_OPEN_PARAMS 구조체 변수 
-	walkingOnSnow.lpstrDeviceType = "waveaudio";
-	walkingOnSnow.lpstrElementName = "Resources/walkingOnsnow.wav";
-	mciSendCommand(0, MCI_OPEN,
-		MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
-		(DWORD)(LPVOID)&walkingOnSnow);
-
-	// 재생
-	MCI_PLAY_PARMS mciPlay2;
-	dwID2 = walkingOnSnow.wDeviceID;
-	mciSendCommand(dwID2, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay2);
-	///////////////////////////////////////////////////////////////////////////////////
 
 
 }
@@ -220,6 +220,8 @@ void Play::Timer()
 
 Scene *Play::update(void)
 {
+	// 초기화 함수 필요 //
+
 	Timer();
 	DrawTimer();
 	DrawProgressbar();
