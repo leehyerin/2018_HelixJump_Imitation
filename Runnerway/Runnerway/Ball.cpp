@@ -53,10 +53,14 @@ void Ball::Update()
 	}
 	else
 	{
-		SetRotZ(GetRotZ() - GetSpeed());
-		SetPosZ(GetPosZ() - 1 * PI * GetRadius() / (360 / GetSpeed()));
+		if (GetPosZ() > -850)
+		{
+			SetRotZ(GetRotZ() - GetSpeed());
+			SetPosZ(GetPosZ() - 1 * PI * GetRadius() / (360 / GetSpeed()));
 
-		SetPosY(GetRadius() + terrain.GetHeightOnTile(GetPosZ()));
+			SetPosY(GetRadius() + terrain.GetHeightOnTile(GetPosZ()));
+		}
+		else cout << "스테이지 클리어!" << endl;
 	}
 }
 

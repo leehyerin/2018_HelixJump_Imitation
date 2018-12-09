@@ -16,6 +16,8 @@ private:
 	int accelTime;
 	float standard;
 
+	bool isActive;
+
 	//
 	bool m_bParticle{ false };
 	vector<Particle> m_vParticles;
@@ -42,6 +44,7 @@ public:
 	bool GetIsJump() { return isJump; }
 	int GetTime() { return JumpTime; }
 	float GetStandard() { return standard; }
+	bool GetActive() { return isActive; }
 
 	void SetPosX(float posx) { x = posx; }
 	void SetPosY(float posy) { y = posy; }

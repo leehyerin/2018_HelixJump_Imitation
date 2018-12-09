@@ -4,8 +4,7 @@ Camera camera;
 
 Scene *scene = new Title();
 int scenenum = 0;
-float z = 0;
-GLuint texture[6];
+GLuint texture[7];
 GLubyte *pBytes; // 데이터를 가리킬 포인터
 BITMAPINFO *info; // 비트맵 헤더 저장할 변수
 
@@ -102,109 +101,109 @@ void draw()
 	m_bitmap1 = LoadDIBitmap("box.bmp", &m_bitInfo1);
 
 	glDrawPixels(40, 10, GL_RGB, GL_UNSIGNED_BYTE, m_bitmap1);*/
+	
 
-	scene->draw();
+	scene->draw();	
 
 	if (scenenum == MAP1)
 	{
 		DrawSky();
 	}
-	
 }
 
 void DrawSky()
 {
 	WHITE;
-
-	// 텍스처를 객체에 맵핑
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	float z = ball.GetPosZ();
+	//----Front-----
+	glBindTexture(GL_TEXTURE_2D, texture[6]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-500.0f, -700.0f, -1000.0f);
+	glVertex3f(-500.0f, -300.0f, -250.0f +z);
 
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-500.0f, 700.0f, -1000.0f);
+	glVertex3f(-500.0f, 700.0f, -250.0f + z);
 
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(500.0f, 700.0f, -1000.0f);
+	glVertex3f(500.0f, 700.0f, -250.0f + z);
 
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(500.0f, -700.0f, -1000.0f);
+	glVertex3f(500.0f, -300.0f, -250.0f + z);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glBindTexture(GL_TEXTURE_2D, texture[6]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-500.0f, -700.0f, 250.0f);
+	glVertex3f(-500.0f, -300.0f, 250.0f + z);
 
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-500.0f, 700.0f, 250.0f);
+	glVertex3f(-500.0f, 700.0f, 250.0f + z);
 
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(500.0f, 700.0f, 250.0f);
+	glVertex3f(500.0f, 700.0f, 250.0f + z);
 
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(500.0f, -700.0f, 250.0f);
+	glVertex3f(500.0f, -300.0f, 250.0f + z);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glBindTexture(GL_TEXTURE_2D, texture[6]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-500.0f, -700.0f, -1000.0f);
+	glVertex3f(-500.0f, -300.0f, -250.0f + z);
 
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-500.0f, 700.0f, -1000.0f);
+	glVertex3f(-500.0f, 700.0f, -250.0f + z);
 
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(-500.0f, 700.0f, 250.0f);
+	glVertex3f(-500.0f, 700.0f, 250.0f + z);
 
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(-500.0f, -700.0f, 250.0f);
+	glVertex3f(-500.0f, -300.0f, 250.0f + z);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glBindTexture(GL_TEXTURE_2D, texture[6]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(500.0f, -700.0f, -1000.0f);
+	glVertex3f(500.0f, -300.0f, -250.0f + z);
 
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(500.0f, 700.0f, -1000.0f);
+	glVertex3f(500.0f, 700.0f, -250.0f + z);
 
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(500.0f, 700.0f, 250.0f);
+	glVertex3f(500.0f, 700.0f, 250.0f + z);
 
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(500.0f, -700.0f, 250.0f);
+	glVertex3f(500.0f, -300.0f, 250.0f + z);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glBindTexture(GL_TEXTURE_2D, texture[6]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-500.0f, -700.0f, -1000.0f);
+	glVertex3f(-500.0f, -300.0f, -250.0f + z);
 
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-500.0f, -700.0f, 250.0f);
+	glVertex3f(-500.0f, -300.0f, 250.0f + z);
 
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(500.0f, -700.0f, 250.0f);
+	glVertex3f(500.0f, -300.0f, 250.0f + z);
 
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(500.0f, -700.0f, -1000.0f);
+	glVertex3f(500.0f, -300.0f, -250.0f + z);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glBindTexture(GL_TEXTURE_2D, texture[6]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-500.0f, 700.0f, -1000.0f);
+	glVertex3f(-500.0f, 700.0f, -250.0f + z);
 
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-500.0f, 700.0f, 250.0f);
+	glVertex3f(-500.0f, 700.0f, 250.0f + z);
 
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(500.0f, 700.0f, 250.0f);
+	glVertex3f(500.0f, 700.0f, 250.0f + z);
 
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(500.0f, 700.0f, -1000.0f);
+	glVertex3f(500.0f, 700.0f, -250.0f + z);
 	glEnd();
 }
 
@@ -355,10 +354,10 @@ void LoadTexture()
 
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, GL_MODULATE);
 
-
+	//스카이맵 다운
 	glBindTexture(GL_TEXTURE_2D, texture[6]);
-	pBytes = LoadDIBitmap("Resources/bar.bmp", &info);
-	glTexImage2D(GL_TEXTURE_2D, 0, 4, 736, 396, 111, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+	pBytes = LoadDIBitmap("Resources/Textures/awup_dn.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 512, 512, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -366,9 +365,6 @@ void LoadTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, GL_MODULATE);
-
-	
-
 
 	//
 

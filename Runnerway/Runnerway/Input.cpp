@@ -38,7 +38,8 @@ inline void SpecialKeyboard(int key, int x, int y)
 
 	if (mod == GLUT_ACTIVE_CTRL)
 	{
-		ball.SetIsJump(true);
+		if (false == ball.GetActive())
+			ball.SetIsJump(true);
 	}
 
 	if (camera.GetLorB())

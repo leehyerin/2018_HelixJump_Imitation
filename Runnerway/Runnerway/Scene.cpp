@@ -68,11 +68,11 @@ void Play::Init()
 
 	x = 10, z = -20;
 	height = terrain.GetHeightOnTile(z);
-	vItems.push_back(Item(x, height + 5, z, 10.0, 0));
+	vItems.push_back(Item(x, height + 10, z, 10.0, 0));
 
 	x = -10, z = -60;
 	height = terrain.GetHeightOnTile(z);
-	vItems.push_back(Item(x, height + 5, z, 10.0, 1));
+	vItems.push_back(Item(x, height + 10, z, 10.0, 1));
 
 	x = 7, z = -150;
 	height = terrain.GetHeightOnTile(z);
@@ -82,17 +82,23 @@ void Play::Init()
 	height = terrain.GetHeightOnTile(z);
 	vItems.push_back(Item(x, height + 5, z, 10.0, 1));
 
-	x = 19, z = -280;
+	x = 0, z = -280;
 	height = terrain.GetHeightOnTile(z);
 	vItems.push_back(Item(x, height + 5, z, 10.0, 0));
 
-	x = 19, z = -300;
+	x = 0, z = -300;
 	height = terrain.GetHeightOnTile(z);
 	vItems.push_back(Item(x, height + 5, z, 10.0, 1));
 
 	x = -15, z = -350;
 	height = terrain.GetHeightOnTile(z);
+	vItems.push_back(Item(x, height + 5, z, 10.0, 1));
+
+	x = 10, z = -440;
+	height = terrain.GetHeightOnTile(z);
 	vItems.push_back(Item(x, height + 5, z, 10.0, 0));
+
+	///-------갈림길-------
 
 	x = -115, z = -550;
 	height = terrain.GetHeightOnTile(z);
@@ -101,23 +107,27 @@ void Play::Init()
 	x = -130, z = -600;
 	height = terrain.GetHeightOnTile(z);
 	vItems.push_back(Item(x, height + 10, z, 10.0, 0));
-	//-------------------------------------------------
-	//-------------------------------------------------
+
+	x = -120, z = -700;
+	height = terrain.GetHeightOnTile(z);
+	vItems.push_back(Item(x, height + 10, z, 10.0, 0));
+	//-------------------------------------------------------------------
+	//-------------------------------------------------------------------
 	x = -20, z = -50;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 8, z, 4));
 
 	x = -10, z = -65;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 8, z, 4));
 
 	x = -10, z = -85;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 8, z, 4));
 
 	x = -8, z = -88;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 8 , z, 4));
 
 	x = 0, z = -110;
 	height = terrain.GetHeightOnTile(z);
@@ -132,41 +142,65 @@ void Play::Init()
 	height = terrain.GetHeightOnTile(z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
-	z = 200;
+	z = -200;
 	height = terrain.GetHeightOnTile(z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
-	z = 210;
+	z = -205;
 	height = terrain.GetHeightOnTile(z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
-	z = 230;
+	z = -240;
 	height = terrain.GetHeightOnTile(z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
-	///-------종 구간-------
-	x = -7, z = -250;
+
+	z = -250;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, 15, z, 4));
 
 	x = 12, z = -300;
 	height = terrain.GetHeightOnTile(z);
 	vObstacles.push_back(Obstacle(x, height + 4, z, 4));
 
+	///-------종 구간-------
 	x = -17, z = -385;
 	height = terrain.GetHeightOnTile(z);
 	vObstacles.push_back(Obstacle(x, height + 4, z, 4));
-	///-------횡 구간-------
-	x = -60, z = -500;
+
+
+	///-------갈림길-------
+	x = -60, z = -520;
 	height = terrain.GetHeightOnTile(z);
 	vObstacles.push_back(Obstacle(x, 6, z, 4));
-
-
-
-	///-------갈림길--------
+	//오른쪽
 	x = 155, z = -600;
 	height = terrain.GetHeightOnTile(z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
+	x = 160, z = -610;
+	height = terrain.GetHeightOnTile(z);
+	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+
+	x = 165, z = -605;
+	height = terrain.GetHeightOnTile(z);
+	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+
+	///-------종 구간--------
+
+	
+	///-------횡 구간--------
+	x = -125, z = -650;
+	height = terrain.GetHeightOnTile(z);
+	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+
+	x = -115, z = -700;
+	height = terrain.GetHeightOnTile(z);
+	vObstacles.push_back(Obstacle(x, 8, z, 4));
+
+	///-------종 구간--------
+	x = -135, z = -800;
+	height = terrain.GetHeightOnTile(z);
+	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
 	//
 	start = clock();
@@ -397,7 +431,7 @@ void Play::DrawProgressbar()
 
 	glDisable(GL_LIGHTING);
 
-	glRasterPos3f(-120, 155, -105);
+	glRasterPos3f(-120, 180, -120);
 	glPixelZoom(xscale*5, yscale);
 
 	glDrawPixels(40, 10, GL_RGB, GL_UNSIGNED_BYTE, m_bitmap);
