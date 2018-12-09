@@ -18,6 +18,8 @@ float tmpY = 0;
 
 MCIDEVICEID dwID1, dwID2, dwID3;
 
+extern GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info);
+
 void Title::Init()
 {
 }
@@ -166,56 +168,61 @@ void Play::Init()
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
 
+	//
+	start = clock();
+	finish = 0.0f;
+	duration = 0.f;
+	//
 }
 
 void Play::OnBGM()
 {
-	//// 파일 열기
-	//MCI_OPEN_PARMS mciOpen;   // MCI_OPEN_PARAMS 구조체 변수 
-	//mciOpen.lpstrDeviceType = "waveaudio";  // mpegvideo : mp3, waveaudio : wav, avivideo : avi
-	//mciOpen.lpstrElementName = "Resources/Beat.wav"; // 파일이름
-	//mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpen);
+	// 파일 열기
+	MCI_OPEN_PARMS mciOpen;   // MCI_OPEN_PARAMS 구조체 변수 
+	mciOpen.lpstrDeviceType = "waveaudio";  // mpegvideo : mp3, waveaudio : wav, avivideo : avi
+	mciOpen.lpstrElementName = "Resources/Beat.wav"; // 파일이름
+	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpen);
 
-	//// 재생
-	//MCI_PLAY_PARMS mciPlay;
-	//dwID1 = mciOpen.wDeviceID;
-	//mciSendCommand(dwID1, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay);//MCI_NOTIFY : 기본, MCI_DGV_PLAY_REPEAT : 반복
+	// 재생
+	MCI_PLAY_PARMS mciPlay;
+	dwID1 = mciOpen.wDeviceID;
+	mciSendCommand(dwID1, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay);//MCI_NOTIFY : 기본, MCI_DGV_PLAY_REPEAT : 반복
 
-	//																			  /////////////////////////////////////////////////////////////////////////////////////
-
-	//																			  // 파일 열기
-	//MCI_OPEN_PARMS walkingOnSnow;   // MCI_OPEN_PARAMS 구조체 변수 
-	//walkingOnSnow.lpstrDeviceType = "waveaudio";
-	//walkingOnSnow.lpstrElementName = "Resources/walkingOnsnow.wav";
-	//mciSendCommand(0, MCI_OPEN,
-	//	MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
-	//	(DWORD)(LPVOID)&walkingOnSnow);
-
-	//// 재생
-	//MCI_PLAY_PARMS mciPlay2;
-	//dwID2 = walkingOnSnow.wDeviceID;
-	//mciSendCommand(dwID2, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay2);
 	/////////////////////////////////////////////////////////////////////////////////////
+
+	// 파일 열기
+	MCI_OPEN_PARMS walkingOnSnow;   // MCI_OPEN_PARAMS 구조체 변수 
+	walkingOnSnow.lpstrDeviceType = "waveaudio";
+	walkingOnSnow.lpstrElementName = "Resources/walkingOnsnow.wav";
+	mciSendCommand(0, MCI_OPEN,
+		MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
+		(DWORD)(LPVOID)&walkingOnSnow);
+
+	// 재생
+	MCI_PLAY_PARMS mciPlay2;
+	dwID2 = walkingOnSnow.wDeviceID;
+	mciSendCommand(dwID2, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay2);
+	///////////////////////////////////////////////////////////////////////////////////
 
 
 }
 
 void Play::Timer()
 {
-	//m_Min = t->tm_min;
-	//m_Sec = t->tm_sec;
-	auto a = localtime(&m_timer);
-	cout << t-a << endl;;
-	t = localtime(&m_timer);
+	finish = clock();
 
+	duration = finish - start;
+	int allsec = duration / CLOCKS_PER_SEC;
+
+	m_Min = allsec / 60;
+	m_Sec = allsec % 60;
 }
 
 Scene *Play::update(void)
 {
-	// 초기화 함수 필요 //
 	Timer();
-
-	m_Progressbar = ball.GetPosZ() / -1000.0f;
+	DrawTimer();
+	DrawProgressbar();
 
 	if (particleTime < 3)
 		particleTime++;
@@ -224,8 +231,6 @@ Scene *Play::update(void)
 		ball.RunParitcle();
 		particleTime = 0;
 	}
-
-	printf("%f %f %f\n", ball.GetPosX(), ball.GetPosY(), ball.GetPosZ());
 
 
 	//-----------갈림길 부분에서 방향에 따라 x를 바꿔주는 부분------------
@@ -261,6 +266,7 @@ void Play::draw(void)
 	glDisable(GL_CULL_FACE);
 	terrain.Draw(camera.GetLorB());
 	ball.RunParticleDraw();
+
 
 	//----------------Obstacles---------------------
 	for (unsigned int d = 0; d < vObstacles.size(); ++d)
@@ -299,7 +305,6 @@ void Play::draw(void)
 	for (unsigned int d = 0; d < vItems.size(); ++d)
 		if (vItems[d].CheckCollPlayerbyItem(ball.GetPosX(), ball.GetPosY(), ball.GetPosZ(), ball.GetRadius()))
 		{
-			//cout << "col!" << endl;
 			sndPlaySoundA("	Resources/dash.wav", SND_ASYNC);
 
 			if (vItems[d].GetItemType() == 0)	// 아이템 먹었을 경우
@@ -349,6 +354,54 @@ void Play::draw(void)
 
 	//--------------------------------------------
 	ball.ParticleProcess();
+
+}
+
+void Play::DrawTimer()
+{
+	glDisable(GL_LIGHTING);
+
+	BLUE;
+	int len, sec, min;
+
+	_itoa(m_Min, buffer, 10);
+	char add[] = " :";
+	strcat(buffer, add);
+
+	glRasterPos3f(75, 150, -100);
+	len = (int)strlen(buffer);
+	for (int i = 0; i < len; i++)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, buffer[i]);
+
+	//
+	sec = GetTimerSec();
+	_itoa(m_Sec, buffer, 10);
+
+	glRasterPos3f(90, 150, -100);
+
+	m_bitmap = LoadDIBitmap("Resources/progress.bmp", &m_bitInfo);
+
+	len = (int)strlen(buffer);
+	for (int i = 0; i < len; i++)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, buffer[i]);
+	//
+	glEnable(GL_LIGHTING);
+
+}
+
+void Play::DrawProgressbar()
+{
+	m_Progressbar = ball.GetPosZ() / -1000.0f;
+
+	glDisable(GL_LIGHTING);
+
+	glRasterPos3f(-120, 155, -105);
+	glPixelZoom(xscale*5, yscale);
+
+	glDrawPixels(40, 10, GL_RGB, GL_UNSIGNED_BYTE, m_bitmap);
+	xscale = m_Progressbar;
+	glEnable(GL_LIGHTING);
+
 }
 
 

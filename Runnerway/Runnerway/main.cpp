@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Input.cpp"
-
 Camera camera;
 
 Scene *scene = new Title();
@@ -12,16 +11,16 @@ BITMAPINFO *info; // 비트맵 헤더 저장할 변수
 
 Light light;
 
+GLubyte *m_bitmap1;
+BITMAPINFO *m_bitInfo1;
+
 void update();
 void draw();
+
 void DrawSky();
-void DrawUI();
 
 GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info);
 void LoadTexture();
-
-void OrthoCameraReset();
-void PerspectiveCameraReset();
 
 int main(int argc, char *argv[]) 
 { 
@@ -31,6 +30,7 @@ int main(int argc, char *argv[])
 	glutInitWindowPosition ( 0, 0 ); 	
 	glutInitWindowSize ( WINDOW_WIDTH, WINDOW_HEIGHT ); 	
 	glutCreateWindow ( "Runnerway" ); 	
+	
 
 	LoadTexture();
 
@@ -62,6 +62,7 @@ GLvoid drawScene( GLvoid )
 	update();
 	draw();
 
+
 	glutSwapBuffers();
 }
 
@@ -84,6 +85,7 @@ void update()
 {
 	Scene *next = scene->update();
 
+
 	if (next != scene)
 	{
 		delete scene;
@@ -93,10 +95,21 @@ void update()
 
 void draw()
 {
-	if (scenenum == 2)
-		DrawSky();
+	
+	/*glRasterPos3f(-120, 155, -105);
+	glPixelZoom(1 * 5, 1);
+
+	m_bitmap1 = LoadDIBitmap("box.bmp", &m_bitInfo1);
+
+	glDrawPixels(40, 10, GL_RGB, GL_UNSIGNED_BYTE, m_bitmap1);*/
 
 	scene->draw();
+
+	if (scenenum == MAP1)
+	{
+		DrawSky();
+	}
+	
 }
 
 void DrawSky()
@@ -107,143 +120,96 @@ void DrawSky()
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-300.0f, -500.0f, -250.0f);
+	glVertex3f(-500.0f, -500.0f, -1000.0f);
 
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-300.0f, 500.0f, -250.0f);
+	glVertex3f(-500.0f, 700.0f, -1000.0f);
 
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(300.0f, 500.0f, -250.0f);
+	glVertex3f(500.0f, 700.0f, -1000.0f);
 
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(300.0f, -500.0f, -250.0f);
+	glVertex3f(500.0f, -500.0f, -1000.0f);
 	glEnd();
 
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-300.0f, -500.0f, 250.0f);
+	glVertex3f(-500.0f, -500.0f, 250.0f);
 
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-300.0f, 500.0f, 250.0f);
+	glVertex3f(-500.0f, 700.0f, 250.0f);
 
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(300.0f, 500.0f, 250.0f);
+	glVertex3f(500.0f, 700.0f, 250.0f);
 
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(300.0f, -500.0f, 250.0f);
+	glVertex3f(500.0f, -500.0f, 250.0f);
 	glEnd();
 
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-300.0f, -500.0f, -250.0f);
+	glVertex3f(-500.0f, -500.0f, -1000.0f);
 
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-300.0f, 500.0f, -250.0f);
+	glVertex3f(-500.0f, 700.0f, -1000.0f);
 
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(-300.0f, 500.0f, 250.0f);
+	glVertex3f(-500.0f, 700.0f, 250.0f);
 
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(-300.0f, -500.0f, 250.0f);
+	glVertex3f(-500.0f, -500.0f, 250.0f);
 	glEnd();
 
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(300.0f, -500.0f, -250.0f);
+	glVertex3f(500.0f, -500.0f, -1000.0f);
 
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(300.0f, 500.0f, -250.0f);
+	glVertex3f(500.0f, 700.0f, -1000.0f);
 
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(300.0f, 500.0f, 250.0f);
+	glVertex3f(500.0f, 700.0f, 250.0f);
 
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(300.0f, -500.0f, 250.0f);
+	glVertex3f(500.0f, -500.0f, 250.0f);
 	glEnd();
 
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-300.0f, -500.0f, -250.0f);
+	glVertex3f(-500.0f, -500.0f, -1000.0f);
 
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-300.0f, -500.0f, 250.0f);
+	glVertex3f(-500.0f, -500.0f, 250.0f);
 
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(300.0f, -500.0f, 250.0f);
+	glVertex3f(500.0f, -500.0f, 250.0f);
 
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(300.0f, -500.0f, -250.0f);
+	glVertex3f(500.0f, -500.0f, -1000.0f);
 	glEnd();
 
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-300.0f, 500.0f, -250.0f);
+	glVertex3f(-500.0f, 700.0f, -1000.0f);
 
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-300.0f, 500.0f, 250.0f);
+	glVertex3f(-500.0f, 700.0f, 250.0f);
 
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(300.0f, 500.0f, 250.0f);
+	glVertex3f(500.0f, 700.0f, 250.0f);
 
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(300.0f, 500.0f, -250.0f);
+	glVertex3f(500.0f, 700.0f, -1000.0f);
 	glEnd();
-
-	DrawUI();
 }
 
-void DrawUI()
-{
-	//UI를 어떻게 그리지?
-	//1. 카메라 앞에 고정
-	//2. 직교투영좌표계로 그리는데 따라오게 z 조절
-	//UI
 
-	glPushMatrix();
-	glTranslated(ball.GetPosX(), ball.GetPosY()+10, ball.GetPosZ()+50.f);
-	glutSolidCube(10.0);
-	glPopMatrix();
-	//z = ball.GetPosZ() + 20.f;
-
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-200.0f, 500.0f, -500.f);
-
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-200.0f, 450.0f, -500.f);
-
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(200.0f, 450.0f, -500.f);
-
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(200.0f, 500.0f, -500.f);
-	glEnd();
-	//
-	glBindTexture(GL_TEXTURE_2D, texture[1]);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-200.0f, 100.0f, -250.f);
-
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-200.0f, 50.0f, -250.f);
-
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(200.0f, 50.0f, -250.f);
-
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(200.0f, 100.0f, -250.f);
-	glEnd();
-
-
-}
-
-GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info)
+inline GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info)
 {
 	FILE *fp;
 	GLubyte *bits;
@@ -312,10 +278,10 @@ GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info)
 	return bits;
 }
 
-
+		
 void LoadTexture()
 {
-	glGenTextures(6, texture);
+	glGenTextures(7, texture);
 
 	// 스카이박스 1
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
@@ -378,4 +344,22 @@ void LoadTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, GL_MODULATE);
+
+
+	glBindTexture(GL_TEXTURE_2D, texture[6]);
+	pBytes = LoadDIBitmap("Resources/bar.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 4, 736, 396, 111, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, GL_MODULATE);
+
+	
+
+
+	//
+
 }

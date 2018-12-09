@@ -25,10 +25,20 @@ public:
 };
 
 class Play : public Scene {
-	time_t m_timer = time(NULL);
-	struct tm * t = localtime(&m_timer);
-	int m_Min;
-	int m_Sec;
+	//≈∏¿Ã∏”
+	char buffer[10];
+
+	//UI
+	GLfloat xscale{ 0.0 }, yscale{ 3.0 };
+
+	GLubyte *m_bitmap;
+	BITMAPINFO *m_bitInfo;
+
+	clock_t start, finish;
+	float duration;
+
+	int m_Min{ 0 };
+	int m_Sec{ 0 };
 
 	float m_Progressbar{ 0 };
 public:
@@ -36,9 +46,12 @@ public:
 	virtual void Init();
 	virtual void OnBGM();
 	void Timer();
-
+	int GetTimerMin() { return m_Min; }
+	int GetTimerSec() { return m_Sec; }
 	Scene *update(void);
 	void draw();
+	void DrawTimer();
+	void DrawProgressbar();
 };
 
 class Result : public Scene {
