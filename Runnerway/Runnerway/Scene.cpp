@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "Scene.h"
 
 extern int scenenum;
 extern Camera camera;
@@ -6,12 +7,13 @@ Ball ball;
 Terrain terrain;
 vector<Item> vItems;
 vector<Obstacle> vObstacles;
-extern GLuint texture[20];
+extern GLuint texture[21];
 extern Light light;
 
 int KnockbackTime = 0;
 int accelTime = 0;
 int particleTime = 0;
+int ResultTime = 0;
 bool ObCol = false;
 bool ItemCol[3] = { false, };
 
@@ -45,6 +47,22 @@ void Title::draw(void)
 
 	glEnable(GL_CULL_FACE);
 	//
+	glBindTexture(GL_TEXTURE_2D, texture[4]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-30.0f, 0.0f, -30.0f);
+
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(-30.0f, 0.0f, 30.0f);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(30.0f, 0.0f, 30.0f);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(30.0f, 0.0f, -30.0f);
+	glEnd();
+
+	//
 	glBindTexture(GL_TEXTURE_2D, texture[19]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
@@ -76,21 +94,6 @@ void Title::draw(void)
 	glVertex3f(5.0f, 3.0f, 10.0f);
 	glEnd();
 
-	//
-	glBindTexture(GL_TEXTURE_2D, texture[4]);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-30.0f, 0.0f, -30.0f);
-
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-30.0f, 0.0f, 30.0f);
-
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(30.0f, 0.0f, 30.0f);
-
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(30.0f, 0.0f, -30.0f);
-	glEnd();
 
 	ball.DrawBall();
 	glDisable(GL_CULL_FACE);
@@ -240,7 +243,7 @@ void Play::Init()
 
 	///-------종 구간--------
 
-	
+
 	///-------횡 구간--------
 	x = -135, z = -650;
 	height = terrain.GetHeightOnTile(z);
@@ -297,8 +300,8 @@ void Play::OnBGM()
 	//walkingOnSnow.lpstrDeviceType = "waveaudio";
 	//walkingOnSnow.lpstrElementName = "Resources/walkingOnsnow.wav";
 	//mciSendCommand(0, MCI_OPEN,
-	//	MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
-	//	(DWORD)(LPVOID)&walkingOnSnow);
+	//   MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
+	//   (DWORD)(LPVOID)&walkingOnSnow);
 
 	//// 재생
 	//MCI_PLAY_PARMS mciPlay2;
@@ -358,7 +361,13 @@ Scene *Play::update(void)
 
 	ball.Update();
 
-	if (scenenum == 3)
+	if (ball.GetPosZ() <= -900.0f)
+		ResultTime++;
+
+	if (ResultTime > 30)
+		scenenum = 2;
+
+	if (scenenum == 2)
 		return new Result();
 
 	return this;
@@ -415,17 +424,17 @@ void Play::draw(void)
 	for (unsigned int d = 0; d < vItems.size(); ++d)
 		if (vItems[d].CheckCollPlayerbyItem(ball.GetPosX(), ball.GetPosY(), ball.GetPosZ(), ball.GetRadius()))
 		{
-			sndPlaySoundA("	Resources/dash.wav", SND_ASYNC);
+			sndPlaySoundA("   Resources/dash.wav", SND_ASYNC);
 
-			if (vItems[d].GetItemType() == 0)	// 아이템 먹었을 경우
+			if (vItems[d].GetItemType() == 0)   // 아이템 먹었을 경우
 			{
 				ItemCol[0] = true;
 			}
 
-			if (vItems[d].GetItemType() == 1)	// 아이템 먹었을 경우
+			if (vItems[d].GetItemType() == 1)   // 아이템 먹었을 경우
 			{
 				ItemCol[1] = true;
-				sndPlaySoundA("	Resources/dash.wav", SND_ASYNC);
+				sndPlaySoundA("   Resources/dash.wav", SND_ASYNC);
 			}
 			vItems.erase(vItems.begin() + d);//아이템 지우기
 			break;
@@ -501,14 +510,14 @@ void Play::DrawTimer()
 
 void Play::DrawProgressbar()
 {
-	glClearColor(0,0,0, 1); 
+	glClearColor(0, 0, 0, 1);
 
 	m_Progressbar = ball.GetPosZ() / -1000.0f;
 
 	glDisable(GL_LIGHTING);
 	WHITE;
 	glRasterPos3f(-140, 180, -120);
-	glPixelZoom(xscale*10, yscale);
+	glPixelZoom(xscale * 10, yscale);
 
 	glDrawPixels(40, 10, GL_RGB, GL_UNSIGNED_BYTE, m_bitmap);
 	xscale = m_Progressbar;
@@ -523,6 +532,10 @@ void Result::Init()
 
 Scene *Result::update(void)
 {
+	DrawTimer();
+
+	ball.ResultMove();
+
 	if (scenenum == 0)
 		return new Title();
 
@@ -531,4 +544,70 @@ Scene *Result::update(void)
 
 void Result::draw(void)
 {
+	glBindTexture(GL_TEXTURE_2D, texture[20]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-10.0f, 15.0f, -10.0f);
+
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(-10.0f, -6.0f, -10.0f);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(10.0f, -6.0f, -10.0f);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(10.0f, 15.0f, -10.0f);
+	glEnd();
+
+	camera.ResultCamera();
+
+	glEnable(GL_CULL_FACE);
+	//
+	glBindTexture(GL_TEXTURE_2D, texture[4]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-30.0f, 0.0f, -30.0f);
+
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(-30.0f, 0.0f, 30.0f);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(30.0f, 0.0f, 30.0f);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(30.0f, 0.0f, -30.0f);
+	glEnd();
+
+	ball.DrawBall();
+	glDisable(GL_CULL_FACE);
+}
+
+void Result::DrawTimer()
+{
+	glDisable(GL_LIGHTING);
+
+	BLUE;
+	int len;
+
+	_itoa(m_Min, buffer, 10);
+	char add[] = " :";
+	strcat(buffer, add);
+
+	glRasterPos3f(75, 150, -100);
+	len = (int)strlen(buffer);
+	for (int i = 0; i < len; i++)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, buffer[i]);
+
+	//
+	_itoa(m_Sec, buffer, 10);
+
+	glRasterPos3f(90, 150, -100);
+
+	m_bitmap = LoadDIBitmap("Resources/progress.bmp", &m_bitInfo);
+
+	len = (int)strlen(buffer);
+	for (int i = 0; i < len; i++)
+		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, buffer[i]);
+	//
+	glEnable(GL_LIGHTING);
 }

@@ -15,4 +15,5 @@ public:
 	void CameraPos();
 
 	void TitleCamera();
+	void ResultCamera();
 };

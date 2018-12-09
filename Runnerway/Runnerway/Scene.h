@@ -48,9 +48,25 @@ public:
 };
 
 class Result : public Scene {
+	//≈∏¿Ã∏”
+	char buffer[10];
+
+	GLubyte *m_bitmap;
+	BITMAPINFO *m_bitInfo;
+
+	clock_t start, finish;
+	float duration;
+
+	int m_Min{ 0 };
+	int m_Sec{ 0 };
+
 public:
+	Result() {}
+	Result(int min, int sec) { m_Min = min; m_Sec = sec; }
+	void SetMin(int min, int sec) { m_Min = min; m_Sec = sec; }
+
 	virtual void Init();
 	Scene *update(void);
 	void draw();
+	void DrawTimer();
 };
-

@@ -1,3 +1,5 @@
+#pragma comment(lib,"Winmm.lib")
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <gl/freeglut.h>

@@ -4,7 +4,7 @@ Camera camera;
 
 Scene *scene = new Title();
 int scenenum = 0;
-GLuint texture[20];
+GLuint texture[21];
 GLubyte *pBytes; // 데이터를 가리킬 포인터
 BITMAPINFO *info; // 비트맵 헤더 저장할 변수
 
@@ -20,31 +20,32 @@ void DrawSky();
 
 GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info);
 void LoadTexture();
+int min, sec;
 
-int main(int argc, char *argv[]) 
-{ 
+int main(int argc, char *argv[])
+{
 	//초기화 함수들 
-	glutInit (&argc, argv); 
+	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-	glutInitWindowPosition ( 0, 0 ); 	
-	glutInitWindowSize ( WINDOW_WIDTH, WINDOW_HEIGHT ); 	
-	glutCreateWindow ( "Runnerway" ); 	
+	glutInitWindowPosition(0, 0);
+	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	glutCreateWindow("Runnerway");
 
 	LoadTexture();
 
-	glutDisplayFunc (drawScene);
-	glutReshapeFunc (Reshape);	
+	glutDisplayFunc(drawScene);
+	glutReshapeFunc(Reshape);
 	glutTimerFunc(100, TimerFunction, 1);
 
 	glutKeyboardFunc(Keyboard);
 	glutSpecialFunc(SpecialKeyboard);
 
 	glEnable(GL_DEPTH_TEST);
-	glutMainLoop (); 
-} 
+	glutMainLoop();
+}
 
-GLvoid drawScene( GLvoid ) 
-{ 
+GLvoid drawScene(GLvoid)
+{
 	glClearColor(0.5f, 0.5f, 1.f, 0.5f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
@@ -61,8 +62,8 @@ GLvoid drawScene( GLvoid )
 	glutSwapBuffers();
 }
 
-GLvoid Reshape(int w, int h) 
-{ 
+GLvoid Reshape(int w, int h)
+{
 	glViewport(0, 0, w, h);
 
 	glMatrixMode(GL_PROJECTION);
@@ -85,32 +86,30 @@ void update()
 		delete scene;
 		scene = next;
 	}
+	if (scenenum == RESULT)
+		static_cast<Result*> (scene)->SetMin(min, sec);
 }
 
 void draw()
 {
-	
-	/*glRasterPos3f(-120, 155, -105);
-	glPixelZoom(1 * 5, 1);
-
-	m_bitmap1 = LoadDIBitmap("box.bmp", &m_bitInfo1);
-
-	glDrawPixels(40, 10, GL_RGB, GL_UNSIGNED_BYTE, m_bitmap1);*/
-
-	if (scenenum == TITLE)
+	if (scenenum == TITLE || scenenum == RESULT)
 		DrawSky();
 
 	scene->draw();
 
 	if (scenenum == PLAY)
+	{
 		DrawSky();
+		min = static_cast<Play*> (scene)->GetTimerMin();
+		sec = static_cast<Play*> (scene)->GetTimerSec();
+	}
 }
 
 void DrawSky()
 {
 	WHITE;
 	float z = ball.GetPosZ();
-	
+
 
 	//----left----
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
@@ -275,10 +274,10 @@ inline GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info)
 	return bits;
 }
 
-		
+
 void LoadTexture()
 {
-	glGenTextures(20, texture);
+	glGenTextures(21, texture);
 
 	// 스카이박스 1
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
@@ -476,6 +475,7 @@ void LoadTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
+	// press 어쩌구
 	glBindTexture(GL_TEXTURE_2D, texture[18]);
 	pBytes = LoadDIBitmap("Resources/pets.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, 93, 399, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
@@ -485,9 +485,20 @@ void LoadTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
+	// 타이틀
 	glBindTexture(GL_TEXTURE_2D, texture[19]);
 	pBytes = LoadDIBitmap("Resources/title.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, 211, 479, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// 결과
+	glBindTexture(GL_TEXTURE_2D, texture[20]);
+	pBytes = LoadDIBitmap("Resources/result.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 400, 400, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

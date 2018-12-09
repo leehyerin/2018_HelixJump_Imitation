@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #define CURVATURE 0.15f //°î·ü
 
-extern GLuint texture[6];
+extern GLuint texture[21];
 
 Terrain::Terrain()
 {

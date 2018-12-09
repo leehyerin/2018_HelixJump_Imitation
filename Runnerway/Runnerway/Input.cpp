@@ -18,12 +18,8 @@ inline void Keyboard(unsigned char key, int x, int y)
 	case 13:
 		if (scenenum == 0)
 			scenenum = 1;
-		break;
-
-	case 'l':
-		if (scenenum == 3)
+		else if (scenenum == 2)
 			scenenum = 0;
-
 		break;
 
 	case VK_ESCAPE:

@@ -10,6 +10,7 @@ private:
 	float radius;
 	float rotX, rotY, rotZ;
 	float speed;
+	int dir;
 
 	bool isJump;
 	int JumpTime;
@@ -74,4 +75,5 @@ public:
 
 	//
 	void TitleMove();
+	void ResultMove();
 };
