@@ -106,8 +106,10 @@ void draw()
 	scene->draw();	
 
 	if (scenenum == MAP1)
-	{
-		DrawSky();
+	{	
+
+		DrawSky();		
+
 	}
 }
 
@@ -115,11 +117,58 @@ void DrawSky()
 {
 	WHITE;
 	float z = ball.GetPosZ();
+	
+
+	//----left----
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-500.0f, -300.0f, -250.0f + z);
+
+	glTexCoord2f(0.25f, 0.0f);
+	glVertex3f(-500.0f, 700.0f, -250.0f + z);
+
+	glTexCoord2f(0.25f, 1.0f);
+	glVertex3f(-500.0f, 700.0f, 500.0f + z);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(-500.0f, -300.0f, 500.0f + z);
+	glEnd();
+	//----Right----
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.25f, 0.0f);
+	glVertex3f(500.0f, -300.0f, -250.0f + z);
+
+	glTexCoord2f(0.5f, 0.0f);
+	glVertex3f(500.0f, 700.0f, -250.0f + z);
+
+	glTexCoord2f(0.5f, 1.0f);
+	glVertex3f(500.0f, 700.0f, 500.0f + z);
+
+	glTexCoord2f(0.25f, 1.0f);
+	glVertex3f(500.0f, -300.0f, 500.0f + z);
+	glEnd();
+	//----Back-----
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.5f, 0.0f);
+	glVertex3f(-500.0f, -300.0f, 250.0f + z);
+
+	glTexCoord2f(0.75f, 0.0f);
+	glVertex3f(-500.0f, 700.0f, 250.0f + z);
+
+	glTexCoord2f(0.75f, 1.0f);
+	glVertex3f(500.0f, 700.0f, 250.0f + z);
+
+	glTexCoord2f(0.5f, 1.0f);
+	glVertex3f(500.0f, -300.0f, 250.0f + z);
+	glEnd();
 	//----Front-----
-	glBindTexture(GL_TEXTURE_2D, texture[6]);
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-500.0f, -300.0f, -250.0f +z);
+	glTexCoord2f(0.75f, 0.0f);
+	glVertex3f(-500.0f, -300.0f, -250.0f + z);
 
 	glTexCoord2f(1.0f, 0.0f);
 	glVertex3f(-500.0f, 700.0f, -250.0f + z);
@@ -127,82 +176,38 @@ void DrawSky()
 	glTexCoord2f(1.0f, 1.0f);
 	glVertex3f(500.0f, 700.0f, -250.0f + z);
 
-	glTexCoord2f(0.0f, 1.0f);
+	glTexCoord2f(0.75f, 1.0f);
 	glVertex3f(500.0f, -300.0f, -250.0f + z);
 	glEnd();
 
-	glBindTexture(GL_TEXTURE_2D, texture[6]);
+	//----down----
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-500.0f, -300.0f, 250.0f + z);
-
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-500.0f, 700.0f, 250.0f + z);
-
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(500.0f, 700.0f, 250.0f + z);
-
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(500.0f, -300.0f, 250.0f + z);
-	glEnd();
-
-	glBindTexture(GL_TEXTURE_2D, texture[6]);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
+	glTexCoord2f(0.25f, 1.0f);
 	glVertex3f(-500.0f, -300.0f, -250.0f + z);
 
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-500.0f, 700.0f, -250.0f + z);
+	glTexCoord2f(0.5f, 1.0f);
+	glVertex3f(-500.0f, -300.0f, 500.0f + z);
 
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(-500.0f, 700.0f, 250.0f + z);
+	glTexCoord2f(0.5f, 0.0f);
+	glVertex3f(500.0f, -300.0f, 500.0f + z);
 
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(-500.0f, -300.0f, 250.0f + z);
-	glEnd();
-
-	glBindTexture(GL_TEXTURE_2D, texture[6]);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(500.0f, -300.0f, -250.0f + z);
-
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(500.0f, 700.0f, -250.0f + z);
-
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(500.0f, 700.0f, 250.0f + z);
-
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(500.0f, -300.0f, 250.0f + z);
-	glEnd();
-
-	glBindTexture(GL_TEXTURE_2D, texture[6]);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-500.0f, -300.0f, -250.0f + z);
-
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-500.0f, -300.0f, 250.0f + z);
-
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(500.0f, -300.0f, 250.0f + z);
-
-	glTexCoord2f(0.0f, 1.0f);
+	glTexCoord2f(0.25f, 0.0f);
 	glVertex3f(500.0f, -300.0f, -250.0f + z);
 	glEnd();
-
-	glBindTexture(GL_TEXTURE_2D, texture[6]);
+	//----up----
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
+	glTexCoord2f(0.25f, 0.0f);
 	glVertex3f(-500.0f, 700.0f, -250.0f + z);
 
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-500.0f, 700.0f, 250.0f + z);
+	glTexCoord2f(0.5f, 0.0f);
+	glVertex3f(-500.0f, 700.0f, 500.0f + z);
 
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(500.0f, 700.0f, 250.0f + z);
+	glTexCoord2f(0.5f, 1.0f);
+	glVertex3f(500.0f, 700.0f, 500.0f + z);
 
-	glTexCoord2f(0.0f, 1.0f);
+	glTexCoord2f(0.25f, 1.0f);
 	glVertex3f(500.0f, 700.0f, -250.0f + z);
 	glEnd();
 }
@@ -280,12 +285,12 @@ inline GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info)
 		
 void LoadTexture()
 {
-	glGenTextures(7, texture);
+	glGenTextures(6, texture);
 
 	// 스카이박스 1
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
-	pBytes = LoadDIBitmap("background1.bmp", &info);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, 960, 720, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+	pBytes = LoadDIBitmap("Resources/Textures/wideTex.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 1914, 720, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -354,18 +359,5 @@ void LoadTexture()
 
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, GL_MODULATE);
 
-	//스카이맵 다운
-	glBindTexture(GL_TEXTURE_2D, texture[6]);
-	pBytes = LoadDIBitmap("Resources/Textures/awup_dn.bmp", &info);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, 512, 512, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, GL_MODULATE);
-
-	//
 
 }

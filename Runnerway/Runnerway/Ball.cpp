@@ -53,7 +53,7 @@ void Ball::Update()
 	}
 	else
 	{
-		if (GetPosZ() > -850)
+		if (GetPosZ() > -900)
 		{
 			SetRotZ(GetRotZ() - GetSpeed());
 			SetPosZ(GetPosZ() - 1 * PI * GetRadius() / (360 / GetSpeed()));

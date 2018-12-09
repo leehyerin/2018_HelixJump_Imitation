@@ -68,83 +68,83 @@ void Play::Init()
 
 	x = 10, z = -20;
 	height = terrain.GetHeightOnTile(z);
-	vItems.push_back(Item(x, height + 10, z, 10.0, 0));
+	vItems.push_back(Item(x, height + 25, z, 10.0, 0));
 
 	x = -10, z = -60;
 	height = terrain.GetHeightOnTile(z);
-	vItems.push_back(Item(x, height + 10, z, 10.0, 1));
+	vItems.push_back(Item(x, height + 25, z, 10.0, 1));
 
 	x = 7, z = -150;
 	height = terrain.GetHeightOnTile(z);
-	vItems.push_back(Item(x, height + 5, z, 10.0, 0));
+	vItems.push_back(Item(x, height + 21, z, 10.0, 0));
 
 	x = 10, z = -205;
 	height = terrain.GetHeightOnTile(z);
-	vItems.push_back(Item(x, height + 5, z, 10.0, 1));
+	vItems.push_back(Item(x, height + 20, z, 10.0, 1));
 
 	x = 0, z = -280;
 	height = terrain.GetHeightOnTile(z);
-	vItems.push_back(Item(x, height + 5, z, 10.0, 0));
+	vItems.push_back(Item(x, height + 20, z, 10.0, 0));
 
 	x = 0, z = -300;
 	height = terrain.GetHeightOnTile(z);
-	vItems.push_back(Item(x, height + 5, z, 10.0, 1));
+	vItems.push_back(Item(x, height + 20, z, 10.0, 1));
 
 	x = -15, z = -350;
 	height = terrain.GetHeightOnTile(z);
-	vItems.push_back(Item(x, height + 5, z, 10.0, 1));
+	vItems.push_back(Item(x, height + 20, z, 10.0, 1));
 
-	x = 10, z = -440;
+	x = 15, z = -420;
 	height = terrain.GetHeightOnTile(z);
-	vItems.push_back(Item(x, height + 5, z, 10.0, 0));
+	vItems.push_back(Item(x, height + 20, z, 10.0, 0));
 
 	///-------갈림길-------
 
 	x = -115, z = -550;
 	height = terrain.GetHeightOnTile(z);
-	vItems.push_back(Item(x, height + 10, z, 10.0, 1));
+	vItems.push_back(Item(x, height + 20, z, 10.0, 1));
 
 	x = -130, z = -600;
 	height = terrain.GetHeightOnTile(z);
-	vItems.push_back(Item(x, height + 10, z, 10.0, 0));
+	vItems.push_back(Item(x, height + 20, z, 10.0, 0));
 
-	x = -120, z = -700;
+	x = -140, z = -730;
 	height = terrain.GetHeightOnTile(z);
-	vItems.push_back(Item(x, height + 10, z, 10.0, 0));
+	vItems.push_back(Item(x, height + 20, z, 10.0, 0));
 	//-------------------------------------------------------------------
 	//-------------------------------------------------------------------
 	x = -20, z = -50;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 8, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 25, z, 4));
 
 	x = -10, z = -65;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 8, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 25, z, 4));
 
 	x = -10, z = -85;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 8, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 25, z, 4));
 
 	x = -8, z = -88;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 8 , z, 4));
+	vObstacles.push_back(Obstacle(x, height + 23, z, 4));
 
 	x = 0, z = -110;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 21, z, 4));
 
 	x = -10, z = -150;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 25, z, 4));
 
 	///-------횡 구간-------
 	x = 0, z = -185;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 25, z, 4));
 
 	z = -200;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 25, z, 4));
 
 	z = -205;
 	height = terrain.GetHeightOnTile(z);
@@ -173,7 +173,16 @@ void Play::Init()
 	height = terrain.GetHeightOnTile(z);
 	vObstacles.push_back(Obstacle(x, 6, z, 4));
 	//오른쪽
-	x = 155, z = -600;
+
+	x = 30, z = -470;
+	height = terrain.GetHeightOnTile(z);
+	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+
+	x = 45, z = -480;
+	height = terrain.GetHeightOnTile(z);
+	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+
+	x = 145, z = -600;
 	height = terrain.GetHeightOnTile(z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
@@ -189,19 +198,34 @@ void Play::Init()
 
 	
 	///-------횡 구간--------
-	x = -125, z = -650;
+	x = -135, z = -650;
 	height = terrain.GetHeightOnTile(z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
-	x = -115, z = -700;
+	x = -125, z = -700;
 	height = terrain.GetHeightOnTile(z);
 	vObstacles.push_back(Obstacle(x, 8, z, 4));
 
 	///-------종 구간--------
-	x = -135, z = -800;
+	x = -140, z = -800;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 27, z, 4));
 
+	x = -165, z = -850;
+	height = terrain.GetHeightOnTile(z);
+	vObstacles.push_back(Obstacle(x, height + 22, z, 4));
+
+	x = -150, z = -880;
+	height = terrain.GetHeightOnTile(z);
+	vObstacles.push_back(Obstacle(x, height + 20, z, 4));
+
+	x = -155, z = -900;
+	height = terrain.GetHeightOnTile(z);
+	vObstacles.push_back(Obstacle(x, height + 20, z, 4));
+
+	x = -165, z = -920;
+	height = terrain.GetHeightOnTile(z);
+	vObstacles.push_back(Obstacle(x, height + 20, z, 4));
 	//
 	start = clock();
 	finish = 0.0f;
@@ -243,19 +267,21 @@ void Play::OnBGM()
 
 void Play::Timer()
 {
-	finish = clock();
+	if (ball.GetPosZ > -900)
+	{
+		finish = clock();
 
-	duration = finish - start;
-	int allsec = duration / CLOCKS_PER_SEC;
+		duration = finish - start;
+		int allsec = duration / CLOCKS_PER_SEC;
 
-	m_Min = allsec / 60;
-	m_Sec = allsec % 60;
+		m_Min = allsec / 60;
+		m_Sec = allsec % 60;
+	}
 }
 
 Scene *Play::update(void)
 {
 	// 초기화 함수 필요 //
-
 	Timer();
 	DrawTimer();
 	DrawProgressbar();
@@ -277,7 +303,7 @@ Scene *Play::update(void)
 		prevTerrainX = X;
 	}
 	//갈림길 끝에 닿으면 갈림길 시작으로 보내는 부분
-	if (ball.GetPosZ() <-580.f && ball.GetPosX() > 0.f)
+	if (ball.GetPosZ() <-530.f && ball.GetPosX() > 0.f)
 	{
 		ball.SetPosX(0.f); ball.SetPosZ(-430.f);
 		prevTerrainX = 0.f;
@@ -427,17 +453,18 @@ void Play::DrawTimer()
 
 void Play::DrawProgressbar()
 {
+	glClearColor(0,0,0, 1); 
+
 	m_Progressbar = ball.GetPosZ() / -1000.0f;
 
 	glDisable(GL_LIGHTING);
-
+	WHITE;
 	glRasterPos3f(-120, 180, -120);
 	glPixelZoom(xscale*5, yscale);
 
 	glDrawPixels(40, 10, GL_RGB, GL_UNSIGNED_BYTE, m_bitmap);
 	xscale = m_Progressbar;
 	glEnable(GL_LIGHTING);
-
 }
 
 

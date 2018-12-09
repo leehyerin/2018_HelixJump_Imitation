@@ -20,14 +20,14 @@ void Terrain::InitStage1()
 	for (z = 0.0; z > -80.0; z -= 0.25)
 	{
 		Floordegree += CURVATURE;
-		y += 0.03f;
+		y += 0.08f;
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });
 	}
 
 	for (z = -80.0; z > -160.0; z -= 0.25)
 	{
 		Floordegree -= CURVATURE;
-		y -= 0.03f;
+		y -= 0.08f;
 		vMap.push_back(Map{ MyVec{ x, y, z }, Floordegree });
 	}
 	//---------------------È¾ ±¸°£-------------------------
