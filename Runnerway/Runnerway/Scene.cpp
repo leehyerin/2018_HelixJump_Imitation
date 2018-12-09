@@ -26,9 +26,6 @@ extern GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info);
 
 void Title::Init()
 {
-	ball.SetPosX(0);
-	ball.SetPosY(3);
-	ball.SetPosZ(0);
 }
 
 Scene *Title::update(void)
@@ -36,7 +33,12 @@ Scene *Title::update(void)
 	ball.TitleMove();
 
 	if (scenenum == 1)
+	{
+		ball.SetPosX(0);
+		ball.SetPosY(3);
+		ball.SetPosZ(0);
 		return new Play();
+	}
 
 	return this;
 }
@@ -368,7 +370,15 @@ Scene *Play::update(void)
 		scenenum = 2;
 
 	if (scenenum == 2)
+	{
+		ResultTime = 0;
+		particleTime = 0;
+
+		ball.SetPosX(0);
+		ball.SetPosY(3);
+		ball.SetPosZ(0);
 		return new Result();
+	}
 
 	return this;
 }
@@ -537,7 +547,12 @@ Scene *Result::update(void)
 	ball.ResultMove();
 
 	if (scenenum == 0)
+	{
+		ball.SetPosX(0);
+		ball.SetPosY(3);
+		ball.SetPosZ(0);
 		return new Title();
+	}
 
 	return this;
 }
@@ -579,6 +594,7 @@ void Result::draw(void)
 	glEnd();
 
 	ball.DrawBall();
+
 	glDisable(GL_CULL_FACE);
 }
 

@@ -81,6 +81,8 @@ void update()
 {
 	Scene *next = scene->update();
 
+	printf("%f\n", ball.GetPosZ());
+
 	if (next != scene)
 	{
 		delete scene;

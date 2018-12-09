@@ -7,7 +7,7 @@ extern BITMAPINFO *info; // 비트맵 헤더 저장할 변수
 
 Ball::Ball()
 {
-	x = 0.0f, y = 3.0f, z = -890.0f;
+	x = 0.0f, y = 3.0f, z = 0.0f;
 	radius = 5.0f;
 	rotZ = 0.0f;
 	speed = 20.0f;
