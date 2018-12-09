@@ -1,8 +1,9 @@
 #include "stdafx.h"
 
-extern GLuint texture[6];
+extern GLuint texture[20];
 
 CCube::CCube()
+
 {
 }
 

@@ -58,7 +58,7 @@ void Camera::CameraPos()
 		glRotated(-terrain.GetYDegreeOnTile(ball.GetPosX(), ball.GetPosZ()), 0.0f, 1.0f, 0.0f);
 		glRotated(0.0f, 0.0f, 0.0f, 1.0f);
 
-		gluLookAt(ball.GetPosX(), ball.GetPosY(), ball.GetPosZ(), 0.0f, 0.0f, -1000.0f, 0.0f, 1.0f, 0.0f);
+		gluLookAt(ball.GetPosX(), ball.GetPosY(), ball.GetPosZ(), 0.0f, 0.0f, ball.GetPosZ() - 500.0f, 0.0f, 1.0f, 0.0f);
 	}
 	else
 	{
@@ -71,4 +71,10 @@ void Camera::CameraPos()
 		gluLookAt(0.0f, ball.GetPosY(), ball.GetPosZ(), 0.0f, 0.0f, -100.0f, 0.0f, 1.0f, 0.0f);
 	}
 	//glPopMatrix();
+}
+
+void Camera::TitleCamera()
+{
+	glTranslated(0.0f, -5.0f, -15.0f);
+	glRotated(10.0f, 1.0f, 0.0f, 0.0f);
 }

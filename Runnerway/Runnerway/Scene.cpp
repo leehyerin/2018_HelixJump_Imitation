@@ -6,6 +6,8 @@ Ball ball;
 Terrain terrain;
 vector<Item> vItems;
 vector<Obstacle> vObstacles;
+extern GLuint texture[20];
+extern Light light;
 
 int KnockbackTime = 0;
 int accelTime = 0;
@@ -22,34 +24,76 @@ extern GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info);
 
 void Title::Init()
 {
+	ball.SetPosX(0);
+	ball.SetPosY(3);
+	ball.SetPosZ(0);
 }
 
 Scene *Title::update(void)
 {
+	ball.TitleMove();
+
 	if (scenenum == 1)
-		return new Lobby();
+		return new Play();
 
 	return this;
 }
 
 void Title::draw(void)
 {
-}
+	camera.TitleCamera();
 
-void Lobby::Init()
-{
-}
+	glEnable(GL_CULL_FACE);
+	//
+	glBindTexture(GL_TEXTURE_2D, texture[19]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-3.0f, 12.0f, 10.0f);
 
-Scene *Lobby::update(void)
-{
-	if (scenenum == 2)
-		return new Play();
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(-3.0f, 9.0f, 10.0f);
 
-	return this;
-}
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(3.0f, 9.0f, 10.0f);
 
-void Lobby::draw(void)
-{
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(3.0f, 12.0f, 10.0f);
+	glEnd();
+
+	//
+	glBindTexture(GL_TEXTURE_2D, texture[18]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-5.0f, 3.0f, 10.0f);
+
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(-5.0f, 0.0f, 10.0f);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(5.0f, 0.0f, 10.0f);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(5.0f, 3.0f, 10.0f);
+	glEnd();
+
+	//
+	glBindTexture(GL_TEXTURE_2D, texture[4]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-30.0f, 0.0f, -30.0f);
+
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(-30.0f, 0.0f, 30.0f);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(30.0f, 0.0f, 30.0f);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(30.0f, 0.0f, -30.0f);
+	glEnd();
+
+	ball.DrawBall();
+	glDisable(GL_CULL_FACE);
 }
 
 
@@ -236,30 +280,30 @@ void Play::Init()
 void Play::OnBGM()
 {
 	// 파일 열기
-	MCI_OPEN_PARMS mciOpen;   // MCI_OPEN_PARAMS 구조체 변수 
-	mciOpen.lpstrDeviceType = "waveaudio";  // mpegvideo : mp3, waveaudio : wav, avivideo : avi
-	mciOpen.lpstrElementName = "Resources/Beat.wav"; // 파일이름
-	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpen);
+	//MCI_OPEN_PARMS mciOpen;   // MCI_OPEN_PARAMS 구조체 변수 
+	//mciOpen.lpstrDeviceType = "waveaudio";  // mpegvideo : mp3, waveaudio : wav, avivideo : avi
+	//mciOpen.lpstrElementName = "Resources/Beat.wav"; // 파일이름
+	//mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpen);
 
-	// 재생
-	MCI_PLAY_PARMS mciPlay;
-	dwID1 = mciOpen.wDeviceID;
-	mciSendCommand(dwID1, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay);//MCI_NOTIFY : 기본, MCI_DGV_PLAY_REPEAT : 반복
+	//// 재생
+	//MCI_PLAY_PARMS mciPlay;
+	//dwID1 = mciOpen.wDeviceID;
+	//mciSendCommand(dwID1, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay);//MCI_NOTIFY : 기본, MCI_DGV_PLAY_REPEAT : 반복
 
-	/////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////
 
-	// 파일 열기
-	MCI_OPEN_PARMS walkingOnSnow;   // MCI_OPEN_PARAMS 구조체 변수 
-	walkingOnSnow.lpstrDeviceType = "waveaudio";
-	walkingOnSnow.lpstrElementName = "Resources/walkingOnsnow.wav";
-	mciSendCommand(0, MCI_OPEN,
-		MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
-		(DWORD)(LPVOID)&walkingOnSnow);
+	//// 파일 열기
+	//MCI_OPEN_PARMS walkingOnSnow;   // MCI_OPEN_PARAMS 구조체 변수 
+	//walkingOnSnow.lpstrDeviceType = "waveaudio";
+	//walkingOnSnow.lpstrElementName = "Resources/walkingOnsnow.wav";
+	//mciSendCommand(0, MCI_OPEN,
+	//	MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
+	//	(DWORD)(LPVOID)&walkingOnSnow);
 
-	// 재생
-	MCI_PLAY_PARMS mciPlay2;
-	dwID2 = walkingOnSnow.wDeviceID;
-	mciSendCommand(dwID2, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay2);
+	//// 재생
+	//MCI_PLAY_PARMS mciPlay2;
+	//dwID2 = walkingOnSnow.wDeviceID;
+	//mciSendCommand(dwID2, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay2);
 	///////////////////////////////////////////////////////////////////////////////////
 
 
@@ -322,6 +366,9 @@ Scene *Play::update(void)
 
 void Play::draw(void)
 {
+	light.TurnOnAmbientLight();
+	light.TurnOnSnowmanLight();
+
 	camera.CameraPos();
 	glEnable(GL_CULL_FACE);
 	ball.DrawBall();

@@ -1,13 +1,13 @@
 #include "stdafx.h"
 
 extern Terrain terrain;
-extern GLuint texture[6];
+extern GLuint texture[20];
 extern GLubyte *pBytes; // 데이터를 가리킬 포인터
 extern BITMAPINFO *info; // 비트맵 헤더 저장할 변수
 
 Ball::Ball()
 {
-	x = 0.0f, y = 5.0f, z = 0.0f;
+	x = 0.0f, y = 2.0f, z = 0.0f;
 	radius = 5.0f;
 	rotZ = 0.0f;
 	speed = 20.0f;
@@ -296,4 +296,20 @@ void Ball::Accelartion(int time)
 		accelTime = 0;
 		speed = 20.0f;
 	}
+}
+
+void Ball::TitleMove()
+{
+	if (GetTime() < 5)
+		SetPosY(GetPosY() + 1);
+	else if (GetTime() >= 5 && GetTime() < 9)
+	{
+		SetPosY(GetPosY() - 1);
+	}
+	else
+	{
+		SetTime(0);
+	}
+
+	SetTime(GetTime() + 1);
 }

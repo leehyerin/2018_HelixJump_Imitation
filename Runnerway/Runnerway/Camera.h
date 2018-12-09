@@ -13,4 +13,6 @@ public:
 	void SetLorB(bool b) { LorB = b; }
 
 	void CameraPos();
+
+	void TitleCamera();
 };

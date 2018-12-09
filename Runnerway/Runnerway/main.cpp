@@ -4,7 +4,7 @@ Camera camera;
 
 Scene *scene = new Title();
 int scenenum = 0;
-GLuint texture[18];
+GLuint texture[20];
 GLubyte *pBytes; // 데이터를 가리킬 포인터
 BITMAPINFO *info; // 비트맵 헤더 저장할 변수
 
@@ -29,7 +29,6 @@ int main(int argc, char *argv[])
 	glutInitWindowPosition ( 0, 0 ); 	
 	glutInitWindowSize ( WINDOW_WIDTH, WINDOW_HEIGHT ); 	
 	glutCreateWindow ( "Runnerway" ); 	
-	
 
 	LoadTexture();
 
@@ -51,8 +50,6 @@ GLvoid drawScene( GLvoid )
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	light.TurnOnAmbientLight();
-
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -60,7 +57,6 @@ GLvoid drawScene( GLvoid )
 
 	update();
 	draw();
-
 
 	glutSwapBuffers();
 }
@@ -84,7 +80,6 @@ void update()
 {
 	Scene *next = scene->update();
 
-
 	if (next != scene)
 	{
 		delete scene;
@@ -101,16 +96,14 @@ void draw()
 	m_bitmap1 = LoadDIBitmap("box.bmp", &m_bitInfo1);
 
 	glDrawPixels(40, 10, GL_RGB, GL_UNSIGNED_BYTE, m_bitmap1);*/
-	
 
-	scene->draw();	
+	if (scenenum == TITLE)
+		DrawSky();
 
-	if (scenenum == MAP1)
-	{	
+	scene->draw();
 
-		DrawSky();		
-
-	}
+	if (scenenum == PLAY)
+		DrawSky();
 }
 
 void DrawSky()
@@ -285,7 +278,7 @@ inline GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info)
 		
 void LoadTexture()
 {
-	glGenTextures(18, texture);
+	glGenTextures(20, texture);
 
 	// 스카이박스 1
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
@@ -319,7 +312,7 @@ void LoadTexture()
 
 	// 아이템
 	glBindTexture(GL_TEXTURE_2D, texture[3]);
-	pBytes = LoadDIBitmap("item.bmp", &info);
+	pBytes = LoadDIBitmap("Resources/item.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, 616, 616, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -329,8 +322,8 @@ void LoadTexture()
 
 	// 바닥
 	glBindTexture(GL_TEXTURE_2D, texture[4]);
-	pBytes = LoadDIBitmap("Load.bmp", &info);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, 254, 233, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+	pBytes = LoadDIBitmap("Resources/Load.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 276, 233, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -339,7 +332,7 @@ void LoadTexture()
 
 	// 눈사람
 	glBindTexture(GL_TEXTURE_2D, texture[5]);
-	pBytes = LoadDIBitmap("snowman.bmp", &info);
+	pBytes = LoadDIBitmap("Resources/snowman.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, 538, 396, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -349,7 +342,7 @@ void LoadTexture()
 
 	// 파티클
 	glBindTexture(GL_TEXTURE_2D, texture[6]);
-	pBytes = LoadDIBitmap("Particle.bmp", &info);
+	pBytes = LoadDIBitmap("Resources/Particle.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, 254, 233, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -477,6 +470,24 @@ void LoadTexture()
 	glBindTexture(GL_TEXTURE_2D, texture[17]);
 	pBytes = LoadDIBitmap("Resources/Textures/snow6.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, 538, 396, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	glBindTexture(GL_TEXTURE_2D, texture[18]);
+	pBytes = LoadDIBitmap("Resources/pets.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 93, 399, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	glBindTexture(GL_TEXTURE_2D, texture[19]);
+	pBytes = LoadDIBitmap("Resources/title.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 211, 479, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

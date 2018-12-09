@@ -15,10 +15,13 @@ inline void Keyboard(unsigned char key, int x, int y)
 			camera.SetLorB(true);
 		break;
 
-	case 'l':		// test
-		scenenum++;
+	case 13:
+		if (scenenum == 0)
+			scenenum = 1;
+		break;
 
-		if (scenenum == 4)
+	case 'l':
+		if (scenenum == 3)
 			scenenum = 0;
 
 		break;

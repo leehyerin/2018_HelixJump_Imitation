@@ -71,4 +71,7 @@ public:
 
 	//
 	void Accelartion(int);
+
+	//
+	void TitleMove();
 };

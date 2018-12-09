@@ -16,4 +16,5 @@ public:
 	~Light() {}
 
 	void TurnOnAmbientLight();
+	void TurnOnSnowmanLight();
 };

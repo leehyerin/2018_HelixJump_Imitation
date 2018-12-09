@@ -1,6 +1,6 @@
 #pragma once
 
-enum STATE { TITLE, LOBBY, MAP1, MAP2, RESULT };
+enum STATE { TITLE, PLAY, RESULT };
 
 class Scene {
 public:
@@ -11,13 +11,6 @@ public:
 };
 
 class Title : public Scene {
-public:
-	virtual void Init();
-	Scene *update(void);
-	void draw();
-};
-
-class Lobby : public Scene {
 public:
 	virtual void Init();
 	Scene *update(void);
