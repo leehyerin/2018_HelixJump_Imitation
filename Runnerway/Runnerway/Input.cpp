@@ -23,7 +23,7 @@ inline void Keyboard(unsigned char key, int x, int y)
 
 		break;
 
-	case VK_ESCAPE: case 'Q': case 'q':
+	case VK_ESCAPE:
 		::PostQuitMessage(0);
 		break;
 

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #define CURVATURE 0.15f //°î·ü
 
+extern GLuint texture[6];
+
 Terrain::Terrain()
 {
 	isFork = false;
@@ -135,11 +137,16 @@ void Terrain::DrawHorizonQuads(float x, float y, float z, float degree)
 		glRotatef(degree, 0, 1, 0);
 		glRotatef(y, 1, 0, 0);
 
+		glBindTexture(GL_TEXTURE_2D, texture[4]);
 		glBegin(GL_QUADS);
 		{
+			glTexCoord2f(0.0f, 0.0f);
 			glVertex3f(+30.f, 0, 0.f);
+			glTexCoord2f(1.0f, 0.0f);
 			glVertex3f(+30.f, 0, 1.f);
+			glTexCoord2f(1.0f, 1.0f);
 			glVertex3f(-30.f, 0, 1.f);
+			glTexCoord2f(0.0f, 1.0f);
 			glVertex3f(-30.f, 0, 0.f);
 		}
 		glEnd();
@@ -151,11 +158,16 @@ void Terrain::DrawVerticalQuads(float x, float y, float z)
 {
 	glPushMatrix();
 	{
+		glBindTexture(GL_TEXTURE_2D, texture[4]);
 		glBegin(GL_QUADS);
 		{
+			glTexCoord2f(0.0f, 0.0f);
 			glVertex3f(x, y, z);
+			glTexCoord2f(1.0f, 0.0f);
 			glVertex3f(x, y, z + 1.f);
+			glTexCoord2f(1.0f, 1.0f);
 			glVertex3f(x, -30.f, z + 1.f);
+			glTexCoord2f(0.0f, 1.0f);
 			glVertex3f(x, -30.f, 0.f);
 		}
 		glEnd();

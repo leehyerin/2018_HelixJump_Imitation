@@ -315,7 +315,7 @@ GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info)
 
 void LoadTexture()
 {
-	glGenTextures(6, texture);
+	glGenTextures(7, texture);
 
 	// ½ºÄ«ÀÌ¹Ú½º 1
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
@@ -357,20 +357,30 @@ void LoadTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	// ´«»ç¶÷ 1
+	// ¹Ù´Ú
 	glBindTexture(GL_TEXTURE_2D, texture[4]);
-	pBytes = LoadDIBitmap("snowman1.bmp", &info);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, 512, 512, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+	pBytes = LoadDIBitmap("Load.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 254, 233, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	// ´«»ç¶÷ 2
+	// ´«»ç¶÷
 	glBindTexture(GL_TEXTURE_2D, texture[5]);
-	pBytes = LoadDIBitmap("snowman2.bmp", &info);
+	pBytes = LoadDIBitmap("snowman.bmp", &info);
 	glTexImage2D(GL_TEXTURE_2D, 0, 3, 538, 396, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// ÆÄÆ¼Å¬
+	glBindTexture(GL_TEXTURE_2D, texture[6]);
+	pBytes = LoadDIBitmap("Particle.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 254, 233, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
