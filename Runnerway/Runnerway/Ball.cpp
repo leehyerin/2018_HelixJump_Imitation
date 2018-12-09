@@ -242,7 +242,20 @@ void Ball::RunParticleDraw()
 		particleIter->SetPos(particleIter->GetPos()->x, particleIter->GetPos()->y + 0.1f, particleIter->GetPos()->z + 0.1f);
 		particleIter->SetTime(particleIter->GetTime() - 1);
 		glTranslated(particleIter->GetPos()->x, particleIter->GetPos()->y, particleIter->GetPos()->z);
-		glutSolidCube(0.1);
+		glBindTexture(GL_TEXTURE_2D, texture[6]);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex3f(0.1f, -0.1f, -0.1f);
+
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex3f(0.1f, 0.1f, -0.1f);
+
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex3f(0.1f, 0.1f, 0.1f);
+
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex3f(0.1f, -0.1f, 0.1f);
+		glEnd();
 		glPopMatrix();
 
 		if (particleIter->GetTime() <= 0)
