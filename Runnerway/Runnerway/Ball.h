@@ -18,6 +18,9 @@ private:
 
 	bool isActive;
 
+	int Particletype;
+	int TexIdx{ 11 };
+	int TexTimer{ 1 };
 	//
 	bool m_bParticle{ false };
 	vector<Particle> m_vParticles;
@@ -59,7 +62,7 @@ public:
 
 	void CompareAddPosX(float prevX, float currX) { x = x + (currX - prevX); }
 	//
-	void ParticleStart(MyVec*);
+	void ParticleStart(MyVec*, int);
 	void ParticleProcess();
 	void ParticleDraw();
 

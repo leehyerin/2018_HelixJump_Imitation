@@ -4,7 +4,7 @@ Camera camera;
 
 Scene *scene = new Title();
 int scenenum = 0;
-GLuint texture[7];
+GLuint texture[18];
 GLubyte *pBytes; // µ¥ÀÌÅÍ¸¦ °¡¸®Å³ Æ÷ÀÎÅÍ
 BITMAPINFO *info; // ºñÆ®¸Ê Çì´õ ÀúÀåÇÒ º¯¼ö
 
@@ -285,7 +285,7 @@ inline GLubyte * LoadDIBitmap(const char* filename, BITMAPINFO** info)
 		
 void LoadTexture()
 {
-	glGenTextures(6, texture);
+	glGenTextures(18, texture);
 
 	// ½ºÄ«ÀÌ¹Ú½º 1
 	glBindTexture(GL_TEXTURE_2D, texture[0]);
@@ -307,10 +307,10 @@ void LoadTexture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-	// Àå¾Ö¹°
+	//´«»ç¶÷2
 	glBindTexture(GL_TEXTURE_2D, texture[2]);
-	pBytes = LoadDIBitmap("box.bmp", &info);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, 817, 821, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+	pBytes = LoadDIBitmap("Resources/Textures/snowww.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 538, 396, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -359,5 +359,127 @@ void LoadTexture()
 
 	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, GL_MODULATE);
 
+	// Àå¾Ö¹°-²É2
+	glBindTexture(GL_TEXTURE_2D, texture[7]);
+	pBytes = LoadDIBitmap("Resources/Textures/pflower.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 418, 418, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
 
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+
+	// Àå¾Ö¹°-²É3
+	glBindTexture(GL_TEXTURE_2D, texture[8]);
+	pBytes = LoadDIBitmap("Resources/Textures/rflower.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 227, 222, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// Àå¾Ö¹°-²É4
+	glBindTexture(GL_TEXTURE_2D, texture[9]);
+	pBytes = LoadDIBitmap("Resources/Textures/wflower.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 300, 260, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// Àå¾Ö¹°-²É1
+	glBindTexture(GL_TEXTURE_2D, texture[10]);
+	pBytes = LoadDIBitmap("Resources/Textures/bigflower.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 394, 378, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// ´«»ç¶÷
+	glBindTexture(GL_TEXTURE_2D, texture[11]);
+	pBytes = LoadDIBitmap("Resources/Textures/snow0.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 538, 396, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// ´«»ç¶÷
+	glBindTexture(GL_TEXTURE_2D, texture[12]);
+	pBytes = LoadDIBitmap("Resources/Textures/snow1.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 538, 396, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// ´«»ç¶÷
+	glBindTexture(GL_TEXTURE_2D, texture[13]);
+	pBytes = LoadDIBitmap("Resources/Textures/snow2.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 538, 396, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// ´«»ç¶÷
+	glBindTexture(GL_TEXTURE_2D, texture[14]);
+	pBytes = LoadDIBitmap("Resources/Textures/snow3.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 538, 396, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+	// ´«»ç¶÷
+	glBindTexture(GL_TEXTURE_2D, texture[15]);
+	pBytes = LoadDIBitmap("Resources/Textures/snow4.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 538, 396, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+
+	// ´«»ç¶÷
+	glBindTexture(GL_TEXTURE_2D, texture[15]);
+	pBytes = LoadDIBitmap("Resources/Textures/snow4.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 538, 396, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+
+	// ´«»ç¶÷
+	glBindTexture(GL_TEXTURE_2D, texture[16]);
+	pBytes = LoadDIBitmap("Resources/Textures/snow5.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 538, 396, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+
+	// ´«»ç¶÷
+	glBindTexture(GL_TEXTURE_2D, texture[17]);
+	pBytes = LoadDIBitmap("Resources/Textures/snow6.bmp", &info);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, 538, 396, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, pBytes);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 }

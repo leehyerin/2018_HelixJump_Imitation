@@ -176,21 +176,21 @@ void Play::Init()
 
 	x = 30, z = -470;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 8, z, 4));
 
 	x = 45, z = -480;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 4, z, 4));
 
-	x = 145, z = -600;
+	x = 145, z = -5500;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 4, z, 4));
 
-	x = 160, z = -610;
+	x = 160, z = -580;
 	height = terrain.GetHeightOnTile(z);
-	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
+	vObstacles.push_back(Obstacle(x, height + 4, z, 4));
 
-	x = 165, z = -605;
+	x = 170, z = -600;
 	height = terrain.GetHeightOnTile(z);
 	vObstacles.push_back(Obstacle(x, height + 2, z, 4));
 
@@ -235,39 +235,39 @@ void Play::Init()
 
 void Play::OnBGM()
 {
-	//// 파일 열기
-	//MCI_OPEN_PARMS mciOpen;   // MCI_OPEN_PARAMS 구조체 변수 
-	//mciOpen.lpstrDeviceType = "waveaudio";  // mpegvideo : mp3, waveaudio : wav, avivideo : avi
-	//mciOpen.lpstrElementName = "Resources/Beat.wav"; // 파일이름
-	//mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpen);
+	// 파일 열기
+	MCI_OPEN_PARMS mciOpen;   // MCI_OPEN_PARAMS 구조체 변수 
+	mciOpen.lpstrDeviceType = "waveaudio";  // mpegvideo : mp3, waveaudio : wav, avivideo : avi
+	mciOpen.lpstrElementName = "Resources/Beat.wav"; // 파일이름
+	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpen);
 
-	//// 재생
-	//MCI_PLAY_PARMS mciPlay;
-	//dwID1 = mciOpen.wDeviceID;
-	//mciSendCommand(dwID1, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay);//MCI_NOTIFY : 기본, MCI_DGV_PLAY_REPEAT : 반복
+	// 재생
+	MCI_PLAY_PARMS mciPlay;
+	dwID1 = mciOpen.wDeviceID;
+	mciSendCommand(dwID1, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay);//MCI_NOTIFY : 기본, MCI_DGV_PLAY_REPEAT : 반복
 
-	///////////////////////////////////////////////////////////////////////////////////////
-
-	//// 파일 열기
-	//MCI_OPEN_PARMS walkingOnSnow;   // MCI_OPEN_PARAMS 구조체 변수 
-	//walkingOnSnow.lpstrDeviceType = "waveaudio";
-	//walkingOnSnow.lpstrElementName = "Resources/walkingOnsnow.wav";
-	//mciSendCommand(0, MCI_OPEN,
-	//	MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
-	//	(DWORD)(LPVOID)&walkingOnSnow);
-
-	//// 재생
-	//MCI_PLAY_PARMS mciPlay2;
-	//dwID2 = walkingOnSnow.wDeviceID;
-	//mciSendCommand(dwID2, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay2);
 	/////////////////////////////////////////////////////////////////////////////////////
+
+	// 파일 열기
+	MCI_OPEN_PARMS walkingOnSnow;   // MCI_OPEN_PARAMS 구조체 변수 
+	walkingOnSnow.lpstrDeviceType = "waveaudio";
+	walkingOnSnow.lpstrElementName = "Resources/walkingOnsnow.wav";
+	mciSendCommand(0, MCI_OPEN,
+		MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
+		(DWORD)(LPVOID)&walkingOnSnow);
+
+	// 재생
+	MCI_PLAY_PARMS mciPlay2;
+	dwID2 = walkingOnSnow.wDeviceID;
+	mciSendCommand(dwID2, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay2);
+	///////////////////////////////////////////////////////////////////////////////////
 
 
 }
 
 void Play::Timer()
 {
-	if (ball.GetPosZ > -900)
+	if (ball.GetPosZ() > -900)
 	{
 		finish = clock();
 
@@ -338,8 +338,9 @@ void Play::draw(void)
 			ItemCol[0] = false;
 			accelTime = 0;
 
-			ball.ParticleStart(vObstacles[d].GetPos());
+			int type = static_cast<Obstacle*>(&vObstacles[d])->GetType();
 
+			ball.ParticleStart(vObstacles[d].GetPos(), type);
 			// 넉백
 			ball.SetPosZ(ball.GetPosZ() + 2.0f);
 			ball.SetSpeed(0.0f);
@@ -377,7 +378,7 @@ void Play::draw(void)
 			if (vItems[d].GetItemType() == 1)	// 아이템 먹었을 경우
 			{
 				ItemCol[1] = true;
-				//sndPlaySoundA("	Resources/dash.wav", SND_ASYNC);
+				sndPlaySoundA("	Resources/dash.wav", SND_ASYNC);
 			}
 			vItems.erase(vItems.begin() + d);//아이템 지우기
 			break;
@@ -404,7 +405,7 @@ void Play::draw(void)
 		{
 			if (vObstacles[d].GetPos()->z > ball.GetPosZ() - 100.0f && vObstacles[d].GetPos()->z < ball.GetPosZ())
 			{
-				ball.ParticleStart(vObstacles[d].GetPos());
+				ball.ParticleStart(vObstacles[d].GetPos(), static_cast<Obstacle*>(&vObstacles[d])->GetType());
 
 				vObstacles.erase(vObstacles.begin() + d); //장애물 지우기
 			}
@@ -459,8 +460,8 @@ void Play::DrawProgressbar()
 
 	glDisable(GL_LIGHTING);
 	WHITE;
-	glRasterPos3f(-120, 180, -120);
-	glPixelZoom(xscale*5, yscale);
+	glRasterPos3f(-140, 180, -120);
+	glPixelZoom(xscale*10, yscale);
 
 	glDrawPixels(40, 10, GL_RGB, GL_UNSIGNED_BYTE, m_bitmap);
 	xscale = m_Progressbar;

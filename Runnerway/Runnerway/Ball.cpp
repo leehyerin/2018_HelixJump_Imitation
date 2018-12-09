@@ -24,6 +24,7 @@ Ball::~Ball()
 
 void Ball::Update()
 {
+
 	if (GetIsJump())
 	{
 		SetRotZ(GetRotZ() - GetSpeed());
@@ -59,6 +60,15 @@ void Ball::Update()
 			SetPosZ(GetPosZ() - 1 * PI * GetRadius() / (360 / GetSpeed()));
 
 			SetPosY(GetRadius() + terrain.GetHeightOnTile(GetPosZ()));
+
+			TexTimer += 1;
+			if (TexTimer > 50)
+			{
+				TexIdx++;
+				TexTimer = 0;
+			}
+			TexIdx = TexIdx % 7 + 11;    //11~17  -> 0~6
+
 		}
 		else cout << "스테이지 클리어!" << endl;
 	}
@@ -77,7 +87,7 @@ void Ball::DrawBall()
 		// 구 매핑
 		glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
 		glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
-		glBindTexture(GL_TEXTURE_2D, texture[5]);
+		glBindTexture(GL_TEXTURE_2D, texture[TexIdx]);
 
 		glTranslatef(x, 0.0f, 0.0f);
 		glTranslatef(0.0f, y, 0.0f);
@@ -95,10 +105,12 @@ void Ball::DrawBall()
 }
 
 
-void Ball::ParticleStart(MyVec* pos)
+void Ball::ParticleStart(MyVec* pos, int type)
 {
 	if (!m_bParticle)
 	{
+		Particletype = type;
+
 		m_bParticle = true;
 		m_Timer = 0;
 
@@ -134,7 +146,7 @@ void Ball::ParticleDraw()
 		glTranslated(d.GetPos()->x, d.GetPos()->y, d.GetPos()->z);
 
 		// 텍스처를 객체에 맵핑
-		glBindTexture(GL_TEXTURE_2D, texture[2]);
+		glBindTexture(GL_TEXTURE_2D, texture[Particletype]);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(-0.5f, -0.5f, -0.5f);
@@ -149,7 +161,7 @@ void Ball::ParticleDraw()
 		glVertex3f(0.5f, -0.5f, -0.5f);
 		glEnd();
 
-		glBindTexture(GL_TEXTURE_2D, texture[2]);
+		glBindTexture(GL_TEXTURE_2D, texture[Particletype]);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(-0.5f, -0.5f, 0.5f);
@@ -164,7 +176,7 @@ void Ball::ParticleDraw()
 		glVertex3f(0.5f, -0.5f, 0.5f);
 		glEnd();
 
-		glBindTexture(GL_TEXTURE_2D, texture[2]);
+		glBindTexture(GL_TEXTURE_2D, texture[Particletype]);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(-0.5f, -0.5f, -0.5f);
@@ -179,7 +191,7 @@ void Ball::ParticleDraw()
 		glVertex3f(-0.5f, -0.5f, 0.5f);
 		glEnd();
 
-		glBindTexture(GL_TEXTURE_2D, texture[2]);
+		glBindTexture(GL_TEXTURE_2D, texture[Particletype]);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(0.5f, -0.5f, -0.5f);
@@ -194,7 +206,7 @@ void Ball::ParticleDraw()
 		glVertex3f(0.5f, -0.5f, 0.5f);
 		glEnd();
 
-		glBindTexture(GL_TEXTURE_2D, texture[2]);
+		glBindTexture(GL_TEXTURE_2D, texture[Particletype]);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(-0.5f, -0.5f, -0.5f);
@@ -209,7 +221,7 @@ void Ball::ParticleDraw()
 		glVertex3f(0.5f, -0.5f, -0.5f);
 		glEnd();
 
-		glBindTexture(GL_TEXTURE_2D, texture[2]);
+		glBindTexture(GL_TEXTURE_2D, texture[Particletype]);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
 		glVertex3f(-0.5f, 0.5f, -0.5f);
