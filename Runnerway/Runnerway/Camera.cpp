@@ -81,6 +81,6 @@ void Camera::TitleCamera()
 
 void Camera::ResultCamera()
 {
-	glTranslated(0.0f, -15.0f, -15.0f);
+	glTranslated(0.0f, -15.0f, -25.0f);
 	glRotated(10.0f, 1.0f, 0.0f, 0.0f);
 }

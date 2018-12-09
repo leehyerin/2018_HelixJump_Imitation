@@ -80,7 +80,6 @@ void TimerFunction(int value)
 void update()
 {
 	Scene *next = scene->update();
-
 	printf("%f\n", ball.GetPosZ());
 
 	if (next != scene)
@@ -89,7 +88,7 @@ void update()
 		scene = next;
 	}
 	if (scenenum == RESULT)
-		static_cast<Result*> (scene)->SetMin(min, sec);
+		static_cast<Result*> (scene)->SetTime(min, sec);
 }
 
 void draw()
@@ -105,6 +104,8 @@ void draw()
 		min = static_cast<Play*> (scene)->GetTimerMin();
 		sec = static_cast<Play*> (scene)->GetTimerSec();
 	}
+	if (scenenum == RESULT)
+		static_cast<Result*> (scene)->DrawTimer();
 }
 
 void DrawSky()

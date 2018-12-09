@@ -542,7 +542,6 @@ void Result::Init()
 
 Scene *Result::update(void)
 {
-	DrawTimer();
 
 	ball.ResultMove();
 
@@ -559,25 +558,29 @@ Scene *Result::update(void)
 
 void Result::draw(void)
 {
-	glBindTexture(GL_TEXTURE_2D, texture[20]);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex3f(-10.0f, 15.0f, -10.0f);
-
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex3f(-10.0f, -6.0f, -10.0f);
-
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex3f(10.0f, -6.0f, -10.0f);
-
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex3f(10.0f, 15.0f, -10.0f);
-	glEnd();
 
 	camera.ResultCamera();
 
+	glBindTexture(GL_TEXTURE_2D, texture[20]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex3f(-10.0f, 35.f, 7.0f);
+
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex3f(-10.0f, 11.f, 10.0f);
+
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex3f(10.0f, 11.f, 10.0f);
+
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex3f(10.0f, 35.f, 7.0f);
+	glEnd();
+
+
 	glEnable(GL_CULL_FACE);
-	//
+	//	
+	DrawTimer();
+
 	glBindTexture(GL_TEXTURE_2D, texture[4]);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
@@ -595,7 +598,10 @@ void Result::draw(void)
 
 	ball.DrawBall();
 
+
 	glDisable(GL_CULL_FACE);
+
+
 }
 
 void Result::DrawTimer()
@@ -609,7 +615,7 @@ void Result::DrawTimer()
 	char add[] = " :";
 	strcat(buffer, add);
 
-	glRasterPos3f(75, 150, -100);
+	glRasterPos3f(-2, 25, 10);
 	len = (int)strlen(buffer);
 	for (int i = 0; i < len; i++)
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, buffer[i]);
@@ -617,9 +623,7 @@ void Result::DrawTimer()
 	//
 	_itoa(m_Sec, buffer, 10);
 
-	glRasterPos3f(90, 150, -100);
-
-	m_bitmap = LoadDIBitmap("Resources/progress.bmp", &m_bitInfo);
+	glRasterPos3f(2, 25, 10);
 
 	len = (int)strlen(buffer);
 	for (int i = 0; i < len; i++)

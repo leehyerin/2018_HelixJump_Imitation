@@ -63,7 +63,7 @@ class Result : public Scene {
 public:
 	Result() {}
 	Result(int min, int sec) { m_Min = min; m_Sec = sec; }
-	void SetMin(int min, int sec) { m_Min = min; m_Sec = sec; }
+	void SetTime(int min, int sec) { m_Min = min; m_Sec = sec; }
 
 	virtual void Init();
 	Scene *update(void);
