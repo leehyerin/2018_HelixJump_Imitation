@@ -63,7 +63,7 @@ void Ball::Update()
 			SetPosY(GetRadius() + terrain.GetHeightOnTile(GetPosZ()));
 
 			TexTimer += 1;
-			if (TexTimer > 50)
+			if (TexTimer > 1000)
 			{
 				TexIdx++;
 				TexTimer = 0;
@@ -71,7 +71,7 @@ void Ball::Update()
 			TexIdx = TexIdx % 7 + 11;    //11~17  -> 0~6
 
 		}
-		else cout << "스테이지 클리어!" << endl;
+		else;// cout << "스테이지 클리어!" << endl;
 	}
 }
 

@@ -47,6 +47,7 @@ void Title::draw(void)
 {
 	camera.TitleCamera();
 
+	glDisable(GL_LIGHTING);
 	glEnable(GL_CULL_FACE);
 	//
 	glBindTexture(GL_TEXTURE_2D, texture[4]);
@@ -285,33 +286,36 @@ void Play::Init()
 void Play::OnBGM()
 {
 	// 파일 열기
-	//MCI_OPEN_PARMS mciOpen;   // MCI_OPEN_PARAMS 구조체 변수 
-	//mciOpen.lpstrDeviceType = "waveaudio";  // mpegvideo : mp3, waveaudio : wav, avivideo : avi
-	//mciOpen.lpstrElementName = "Resources/Beat.wav"; // 파일이름
-	//mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpen);
+	MCI_OPEN_PARMS mciOpen;   // MCI_OPEN_PARAMS 구조체 변수 
+	mciOpen.lpstrDeviceType = "mpegvideo";  // mpegvideo : mp3, waveaudio : wav, avivideo : avi
+	mciOpen.lpstrElementName = "Resources/Sounds/bgm.mp3"; // 파일이름
+	mciSendCommand(0, MCI_OPEN, MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE, (DWORD)(LPVOID)&mciOpen);
 
-	//// 재생
-	//MCI_PLAY_PARMS mciPlay;
-	//dwID1 = mciOpen.wDeviceID;
-	//mciSendCommand(dwID1, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay);//MCI_NOTIFY : 기본, MCI_DGV_PLAY_REPEAT : 반복
+	// 재생
+	MCI_PLAY_PARMS mciPlay;
+	dwID1 = mciOpen.wDeviceID;
+	mciSendCommand(dwID1, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay);//MCI_NOTIFY : 기본, MCI_DGV_PLAY_REPEAT : 반복
 
-	///////////////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////////
 
-	//// 파일 열기
-	//MCI_OPEN_PARMS walkingOnSnow;   // MCI_OPEN_PARAMS 구조체 변수 
-	//walkingOnSnow.lpstrDeviceType = "waveaudio";
-	//walkingOnSnow.lpstrElementName = "Resources/walkingOnsnow.wav";
-	//mciSendCommand(0, MCI_OPEN,
-	//   MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
-	//   (DWORD)(LPVOID)&walkingOnSnow);
+	// 파일 열기
+	MCI_OPEN_PARMS walkingOnSnow;   // MCI_OPEN_PARAMS 구조체 변수 
+	walkingOnSnow.lpstrDeviceType = "waveaudio";
+	walkingOnSnow.lpstrElementName = "Resources/Sounds/walkingOnsnow.wav";
+	mciSendCommand(0, MCI_OPEN,
+	   MCI_OPEN_ELEMENT | MCI_OPEN_TYPE | MCI_OPEN_TYPE,
+	   (DWORD)(LPVOID)&walkingOnSnow);
 
-	//// 재생
-	//MCI_PLAY_PARMS mciPlay2;
-	//dwID2 = walkingOnSnow.wDeviceID;
-	//mciSendCommand(dwID2, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay2);
+	// 재생
+	MCI_PLAY_PARMS mciPlay2;
+	dwID2 = walkingOnSnow.wDeviceID;
+	mciSendCommand(dwID2, MCI_PLAY, MCI_DGV_PLAY_REPEAT, (DWORD)(LPVOID)&mciPlay2);
 	///////////////////////////////////////////////////////////////////////////////////
+}
 
-
+void Play::OffBGM()
+{
+	mciSendCommand(dwID1, MCI_CLOSE, 0, NULL);
 }
 
 void Play::Timer()
@@ -364,10 +368,14 @@ Scene *Play::update(void)
 	ball.Update();
 
 	if (ball.GetPosZ() <= -900.0f)
-		ResultTime++;
+		++ResultTime;
 
 	if (ResultTime > 30)
+	{
+		sndPlaySoundA("Resources/Sounds/clear.wav", SND_ASYNC);
+		OffBGM();
 		scenenum = 2;
+	}
 
 	if (scenenum == 2)
 	{
@@ -390,6 +398,7 @@ void Play::draw(void)
 
 	camera.CameraPos();
 	glEnable(GL_CULL_FACE);
+
 	ball.DrawBall();
 	glDisable(GL_CULL_FACE);
 	terrain.Draw(camera.GetLorB());
@@ -400,7 +409,7 @@ void Play::draw(void)
 	for (unsigned int d = 0; d < vObstacles.size(); ++d)
 		if (vObstacles[d].CheckCollPlayerbyItem(ball.GetPosX(), ball.GetPosY(), ball.GetPosZ(), ball.GetRadius()))
 		{
-			sndPlaySoundA("Resources/Explosion.wav", SND_ASYNC);
+			sndPlaySoundA("Resources/Sounds/Explosion.wav", SND_ASYNC);
 			ItemCol[0] = false;
 			accelTime = 0;
 
@@ -434,7 +443,7 @@ void Play::draw(void)
 	for (unsigned int d = 0; d < vItems.size(); ++d)
 		if (vItems[d].CheckCollPlayerbyItem(ball.GetPosX(), ball.GetPosY(), ball.GetPosZ(), ball.GetRadius()))
 		{
-			sndPlaySoundA("   Resources/dash.wav", SND_ASYNC);
+			sndPlaySoundA("Resources/Sounds/button-09.wav", SND_ASYNC);
 
 			if (vItems[d].GetItemType() == 0)   // 아이템 먹었을 경우
 			{
@@ -444,7 +453,7 @@ void Play::draw(void)
 			if (vItems[d].GetItemType() == 1)   // 아이템 먹었을 경우
 			{
 				ItemCol[1] = true;
-				sndPlaySoundA("   Resources/dash.wav", SND_ASYNC);
+				sndPlaySoundA("Resources/Sounds/dash.wav", SND_ASYNC);
 			}
 			vItems.erase(vItems.begin() + d);//아이템 지우기
 			break;
@@ -550,6 +559,8 @@ Scene *Result::update(void)
 		ball.SetPosX(0);
 		ball.SetPosY(3);
 		ball.SetPosZ(0);
+		ball.SetTexTime(0);
+
 		return new Title();
 	}
 

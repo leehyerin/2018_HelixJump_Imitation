@@ -38,6 +38,8 @@ public:
 	Play();
 	virtual void Init();
 	virtual void OnBGM();
+	void OffBGM();
+
 	void Timer();
 	int GetTimerMin() { return m_Min; }
 	int GetTimerSec() { return m_Sec; }

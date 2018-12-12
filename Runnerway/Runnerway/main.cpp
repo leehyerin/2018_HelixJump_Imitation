@@ -80,7 +80,6 @@ void TimerFunction(int value)
 void update()
 {
 	Scene *next = scene->update();
-	printf("%f\n", ball.GetPosZ());
 
 	if (next != scene)
 	{
@@ -95,6 +94,7 @@ void draw()
 {
 	if (scenenum == TITLE || scenenum == RESULT)
 		DrawSky();
+	glEnable(GL_LIGHTING);
 
 	scene->draw();
 

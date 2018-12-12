@@ -8,18 +8,21 @@ inline void Keyboard(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
-	case 'p':		// test
-		if (camera.GetLorB())
-			camera.SetLorB(false);
-		else
-			camera.SetLorB(true);
-		break;
+	//case 'p':		// test
+	//	if (camera.GetLorB())
+	//		camera.SetLorB(false);
+	//	else
+	//		camera.SetLorB(true);
+	//	break;
 
 	case 13:
 		if (scenenum == 0)
 			scenenum = 1;
 		else if (scenenum == 2)
+		{
 			scenenum = 0;
+			ball.SetTexTime(0);
+		}
 		break;
 
 	case VK_ESCAPE:

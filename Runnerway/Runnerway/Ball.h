@@ -60,6 +60,7 @@ public:
 	void SetIsJump(bool b) { isJump = b; }
 	void SetTime(int t) { JumpTime = t; }
 	void SetStandard(float s) { standard = s; }
+	void SetTexTime(int i) { TexTimer = i; }
 
 	void CompareAddPosX(float prevX, float currX) { x = x + (currX - prevX); }
 	//
